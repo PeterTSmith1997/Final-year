@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;Database.knownBots()&apos; to &apos;knownGoodIPs&apos;&#x0D;&#x0A;- Original project: &apos;logg reader&apos;&#x0D;&#x0A;- Original element: &apos;Database.knownBots()&apos;&#x0D;&#x0A;- Renamed element: &apos;Database.knownGoodIPs()&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;knownBots&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;{Database.java[Database~knownBots" name="knownGoodIPs" references="true" stamp="1558550460938" version="1.0"/>
+</session>

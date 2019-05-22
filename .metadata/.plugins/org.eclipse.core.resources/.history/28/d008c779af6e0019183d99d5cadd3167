@@ -1,0 +1,59 @@
+import javax.swing.JFrame;
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Menu extends JFrame{
+	public Menu() {
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.NORTH);
+		
+		JLabel lblWebLogReader = new JLabel("Web log reader");
+		panel.add(lblWebLogReader);
+		
+		JPanel panel_1 = new JPanel();
+		getContentPane().add(panel_1, BorderLayout.CENTER);
+		
+		JButton btnNewButton = new JButton("Open File");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+				jfc.setDialogTitle("Select a log file");
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt");
+				jfc.addChoosableFileFilter(filter);
+			}
+		});
+		panel_1.add(btnNewButton);
+	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Menu frame = new Menu();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+}
