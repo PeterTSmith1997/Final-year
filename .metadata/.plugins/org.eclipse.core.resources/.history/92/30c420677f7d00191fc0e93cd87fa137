@@ -1,0 +1,24 @@
+
+public class Hits {
+	private String IPaddr;
+	private String request;
+	private String dateTime;
+	public int response;
+	public int size;
+	/**
+	 * @param iPaddr
+	 * @param request
+	 * @param dateTime
+	 * @param response
+	 * @param size
+	 */
+	public Hits(String iPaddr, String request, String dateTime, int response, int size) {
+		IPaddr = iPaddr;
+		this.request = request;
+		this.dateTime = dateTime;
+		this.response = response;
+		this.size = size;
+	}
+	
+	
+}

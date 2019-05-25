@@ -13,9 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
-public class Menu extends JFrame{
+public class Menu extends JFrame {
 	Reader reader = new Reader();
 	Database database = new Database();
+
 	public Menu() {
 		setSize(new Dimension(100, 300));
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -23,41 +24,45 @@ public class Menu extends JFrame{
 		setLocationRelativeTo(null);
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.NORTH);
-		
+
 		JLabel lblWebLogReader = new JLabel("Web log reader");
 		panel.add(lblWebLogReader);
-		
+
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.CENTER);
-		
+
 		JButton openButton = new JButton("Open File");
 		openButton.addActionListener(new ActionListener() {
+			//https://www.mkyong.com/swing/java-swing-jfilechooser-example/
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+				JFileChooser jfc = new JFileChooser(
+						FileSystemView.getFileSystemView().getDefaultDirectory());
 				jfc.setDialogTitle("Select a log file");
 				jfc.setAcceptAllFileFilterUsed(false);
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt");
+				FileNameExtensionFilter filter = new FileNameExtensionFilter(
+						"Text files", "txt");
 				jfc.addChoosableFileFilter(filter);
 				int returnValue = jfc.showSaveDialog(null);
-				
+
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					System.err.println(jfc.getSelectedFile().getPath());
 					reader.setFile(jfc.getSelectedFile().getPath());
 					reader.readFile();
-					
+
 				}
 			}
 		});
 		panel_1.add(openButton);
-		
+
 		JButton btnViewIpsknown = new JButton("View IPs (known)");
 		btnViewIpsknown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				database.knownGoodIPs();
+				IpInfo ipUi = new IpInfo();
+//				ipUi.setVisible(true);
 			}
 		});
 		panel_1.add(btnViewIpsknown);
-		
+
 		JButton btnAddKnownIps = new JButton("Add known IPs");
 		btnAddKnownIps.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -76,7 +81,7 @@ public class Menu extends JFrame{
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				
+
 				try {
 					Menu frame = new Menu();
 					frame.setVisible(true);

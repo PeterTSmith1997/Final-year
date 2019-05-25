@@ -1,0 +1,31 @@
+import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import javax.swing.JScrollPane;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+public class IpInfo extends JFrame{
+	private JTable table;
+	Database database = new Database();
+	
+	public IpInfo() {
+		init();
+	}
+		
+
+	private void init() {
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		getContentPane().add(scrollPane, BorderLayout.WEST);
+		
+		JLabel lblKnownBots = new JLabel("Known bots");
+		getContentPane().add(lblKnownBots, BorderLayout.NORTH);
+		
+		table = new JTable(database.bots());
+		table.setAutoCreateRowSorter(false);
+		getContentPane().add(table, BorderLayout.SOUTH);
+		
+	}
+}

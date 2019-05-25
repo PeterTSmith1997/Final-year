@@ -951,3 +951,210 @@ java.net.ConnectException: Connection timed out: connect
 	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
 	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+!SESSION 2019-05-23 17:59:52.953 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180301-0715
+java.version=1.8.0_161
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2019-05-23 18:00:08.379
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.egit.ui 2 0 2019-05-23 18:01:10.550
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\peter'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 18:20:00.238
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0/juno/patches.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 18:20:02.249
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 18:20:07.779
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 18:20:09.215
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 18:20:12.493
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1/emf-compare.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 18:20:21.149
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1/common.
+!SESSION 2019-05-23 18:50:04.723 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180301-0715
+java.version=1.8.0_161
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2019-05-23 18:50:45.740
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\peter'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 19:49:15.011
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0/juno/patches.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 19:49:16.811
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 19:49:21.912
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 19:49:23.214
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 19:49:26.081
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1/emf-compare.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 19:49:33.710
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1/common.
+
+!ENTRY org.eclipse.ui 4 0 2019-05-23 21:41:06.537
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.lang.IllegalArgumentException: Argument not valid
+	at org.eclipse.swt.SWT.error(SWT.java:4514)
+	at org.eclipse.swt.SWT.error(SWT.java:4448)
+	at org.eclipse.swt.SWT.error(SWT.java:4419)
+	at org.eclipse.swt.graphics.GC.drawImage(GC.java:978)
+	at org.eclipse.wb.draw2d.Graphics.drawImage(Graphics.java:262)
+	at org.eclipse.wb.internal.draw2d.SemiTransparentFigure.paintClientArea(SemiTransparentFigure.java:59)
+	at org.eclipse.wb.draw2d.Figure.paintFigure(Figure.java:533)
+	at org.eclipse.wb.draw2d.Figure.paint(Figure.java:514)
+	at org.eclipse.wb.draw2d.Figure.paintChildren(Figure.java:552)
+	at org.eclipse.wb.draw2d.Figure.paint(Figure.java:516)
+	at org.eclipse.wb.draw2d.Figure.paintChildren(Figure.java:552)
+	at org.eclipse.wb.draw2d.Figure.paint(Figure.java:516)
+	at org.eclipse.wb.internal.draw2d.FigureCanvas.handlePaint(FigureCanvas.java:188)
+	at org.eclipse.wb.internal.draw2d.FigureCanvas.access$2(FigureCanvas.java:160)
+	at org.eclipse.wb.internal.draw2d.FigureCanvas$3.handleEvent(FigureCanvas.java:150)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:86)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4428)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1103)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1088)
+	at org.eclipse.swt.widgets.Composite.WM_PAINT(Composite.java:1665)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:4900)
+	at org.eclipse.swt.widgets.Canvas.windowProc(Canvas.java:359)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5178)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessageW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessage(OS.java:2560)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3815)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1150)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1039)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:680)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:594)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:148)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:151)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:653)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1499)
+!SESSION 2019-05-23 22:44:57.126 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180301-0715
+java.version=1.8.0_161
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2019-05-23 22:45:04.985
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.egit.ui 2 0 2019-05-23 22:45:40.576
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\peter'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2019-05-23 22:48:01.855 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180301-0715
+java.version=1.8.0_161
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2019-05-23 22:48:08.778
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.egit.ui 2 0 2019-05-23 22:48:40.994
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\peter'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 22:51:13.461
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0/juno/patches.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 22:51:15.582
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 22:51:20.882
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 22:51:22.232
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 22:51:25.065
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1/emf-compare.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-23 22:51:32.869
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1/common.
+!SESSION 2019-05-25 15:58:56.205 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180301-0715
+java.version=1.8.0_161
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2019-05-25 15:59:09.788
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.egit.ui 2 0 2019-05-25 15:59:50.555
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\peter'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-25 16:19:24.881
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0/juno/patches.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-25 16:19:29.210
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-25 16:19:42.582
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-25 16:19:45.797
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-25 16:19:52.062
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1/emf-compare.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-25 16:20:03.205
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1/common.

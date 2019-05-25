@@ -1,0 +1,133 @@
+import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.JScrollPane;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JPanel;
+
+public class IpInfo extends JFrame{
+	private JFrame frame;
+	private JScrollPane knownIpScroll;
+	private JTable table;
+	Database database = new Database();
+	private Component panel;
+	private JLabel lblToDo;
+	
+	public IpInfo() {
+		init();
+	}
+		
+
+	private void init() {
+	frame = new JFrame();
+		
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		frame.setBounds(100, 100, 1169, 686);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{10, 476, 0, 358, 0, 400, 10, 0};
+		gridBagLayout.rowHeights = new int[]{10, 5, 5, 501, 60, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		frame.getContentPane().setLayout(gridBagLayout);
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		// to do label
+		lblToDo = new JLabel("To Do");
+		lblToDo.setFont(new Font("Tahoma", Font.BOLD, 14));
+		GridBagConstraints gbc_lblToDo = new GridBagConstraints();
+		gbc_lblToDo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblToDo.gridx = 1;
+		gbc_lblToDo.gridy = 1;
+		frame.getContentPane().add(lblToDo, gbc_lblToDo);
+		
+		panel_1 = new JPanel();
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.gridwidth = 3;
+		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_1.gridx = 2;
+		gbc_panel_1.gridy = 1;
+		frame.getContentPane().add(panel_1, gbc_panel_1);
+		
+		lblNewLabel = new JLabel("Time taken to complete selected tasks");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		panel_1.add(lblNewLabel);
+		
+		lblCompleted = new JLabel("Completed");
+		lblCompleted.setFont(new Font("Tahoma", Font.BOLD, 14));
+		GridBagConstraints gbc_lblCompleted = new GridBagConstraints();
+		gbc_lblCompleted.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCompleted.gridx = 5;
+		gbc_lblCompleted.gridy = 1;
+		frame.getContentPane().add(lblCompleted, gbc_lblCompleted);
+		
+		panel = new JPanel();
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.gridwidth = 3;
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 2;
+		gbc_panel.gridy = 2;
+		frame.getContentPane().add(panel, gbc_panel);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		// add components to allow the caretaker to specify
+		// how long they took to complete a task
+		txtHours = new JTextField();
+		txtHours.setText("0");
+		panel.add(txtHours);
+		txtHours.setColumns(3);
+		
+		lblNewLabel_1 = new JLabel("hours");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		panel.add(lblNewLabel_1);
+		
+		txtMinutes = new JTextField();
+		txtMinutes.setText("0");
+		panel.add(txtMinutes);
+		txtMinutes.setColumns(3);
+		
+		lblNewLabel_2 = new JLabel("minutes");
+		panel.add(lblNewLabel_2);
+		
+		// area to view tasks the caretaker has been allocated
+		inProgressScrollPane = new JScrollPane();
+		GridBagConstraints gbc_inProgressScrollPane = new GridBagConstraints();
+		gbc_inProgressScrollPane.gridheight = 2;
+		gbc_inProgressScrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_inProgressScrollPane.fill = GridBagConstraints.BOTH;
+		gbc_inProgressScrollPane.gridx = 1;
+		gbc_inProgressScrollPane.gridy = 2;
+		frame.getContentPane().add(inProgressScrollPane, gbc_inProgressScrollPane);
+		
+		// table of in progress tasks
+		tblInProgress = new JTable(allTasks.getAllocatedToCaretaker(username));
+		tblInProgress.setAutoCreateRowSorter(true);
+		
+		//table = new JTable(database.bots());
+		table.setAutoCreateRowSorter(false);
+		getContentPane().add(table, BorderLayout.WEST);
+		
+		JPanel panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.CENTER);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		getContentPane().add(scrollPane, BorderLayout.WEST);
+		knownIpScroll = new JScrollPane();
+		GridBagConstraints gbc_inProgressScrollPane = new GridBagConstraints();
+		gbc_inProgressScrollPane.gridheight = 2;
+		gbc_inProgressScrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_inProgressScrollPane.fill = GridBagConstraints.BOTH;
+		gbc_inProgressScrollPane.gridx = 1;
+		gbc_inProgressScrollPane.gridy = 2;
+		frame.getContentPane().add(knownIpScroll, gbc_inProgressScrollPane);
+		
+		
+	}
+}

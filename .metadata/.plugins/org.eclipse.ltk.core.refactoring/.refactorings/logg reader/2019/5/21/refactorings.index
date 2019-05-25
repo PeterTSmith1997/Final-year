@@ -1,1 +1,6 @@
 1558550460938	Rename method 'knownBots'
+1558633509473	Rename resource 'test'
+1558646768009	Rename field 'inProgressScrollPane'
+1558647593555	Rename method 'init'
+1558648679257	Rename field 'inProgressScrollPane'
+1558648815765	Rename local variable 'gbc_inProgressScrollPane'

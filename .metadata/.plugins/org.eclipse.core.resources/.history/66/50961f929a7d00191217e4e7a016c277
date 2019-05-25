@@ -1,0 +1,22 @@
+import java.awt.GridBagLayout;
+
+import javax.swing.JFrame;
+
+public class IpInfo extends JFrame{
+	public IpInfo() {
+	}
+	private JFrame frame;
+	private void init() {
+	frame = new JFrame();
+		
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		frame.setBounds(100, 100, 1169, 686);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{10, 476, 0, 358, 0, 400, 10, 0};
+		gridBagLayout.rowHeights = new int[]{10, 5, 5, 501, 60, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		frame.getContentPane().setLayout(gridBagLayout);
+	}
+}
