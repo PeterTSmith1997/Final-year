@@ -1158,3 +1158,176 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-25 16:20:03.205
 !MESSAGE No repository found at http://update.uml-lab.com/1.8.1/common.
+!SESSION 2019-05-25 22:54:28.663 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180301-0715
+java.version=1.8.0_161
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2019-05-25 22:55:25.784
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\peter'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-25 23:21:56.281
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0/juno/patches.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-25 23:21:58.288
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-25 23:22:03.319
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-25 23:22:05.746
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-25 23:22:08.538
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1/emf-compare.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-25 23:22:16.524
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1/common.
+
+!ENTRY org.eclipse.recommenders.rcp 4 18 2019-05-25 23:25:51.380
+!MESSAGE Failed to resolve selection in ‘=logg reader/src<{Analise.java’ at offset 763.
+!STACK 1
+Java Model Exception: Java Model Status [Index out of bounds]
+	at org.eclipse.jdt.internal.core.Openable.codeSelect(Openable.java:158)
+	at org.eclipse.jdt.internal.core.CompilationUnit.codeSelect(CompilationUnit.java:378)
+	at org.eclipse.jdt.internal.core.CompilationUnit.codeSelect(CompilationUnit.java:372)
+	at org.eclipse.recommenders.internal.rcp.JavaElementSelections.resolveJavaElementFromTypeRootInEditor(JavaElementSelections.java:138)
+	at org.eclipse.recommenders.internal.rcp.JavaElementSelections.resolveJavaElementFromEditor(JavaElementSelections.java:119)
+	at org.eclipse.recommenders.internal.rcp.JavaElementSelections.resolveJavaElementFromEditor(JavaElementSelections.java:102)
+	at org.eclipse.recommenders.internal.rcp.JavaElementSelectionService.handleSelectionInEditor(JavaElementSelectionService.java:108)
+	at org.eclipse.recommenders.internal.rcp.JavaElementSelectionService.access$1(JavaElementSelectionService.java:105)
+	at org.eclipse.recommenders.internal.rcp.JavaElementSelectionService$1.run(JavaElementSelectionService.java:82)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(Unknown Source)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+!SUBENTRY 1 org.eclipse.jdt.core 4 980 2019-05-25 23:25:51.385
+!MESSAGE Index out of bounds
+
+!ENTRY org.eclipse.debug.ui 4 120 2019-05-25 23:26:14.646
+!MESSAGE Error logged from Debug UI: 
+!STACK 0
+java.io.IOException: Input Stream Closed
+	at org.eclipse.ui.console.IOConsoleInputStream.available(IOConsoleInputStream.java:268)
+	at org.eclipse.ui.console.IOConsoleInputStream.read(IOConsoleInputStream.java:95)
+	at org.eclipse.ui.console.IOConsoleInputStream.read(IOConsoleInputStream.java:120)
+	at org.eclipse.debug.internal.ui.views.console.ProcessConsole$InputReadJob.run(ProcessConsole.java:733)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+!SESSION 2019-05-26 17:31:30.207 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180301-0715
+java.version=1.8.0_161
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2019-05-26 17:32:43.773
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\peter'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-26 17:55:15.041
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0/juno/patches.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-26 17:55:16.967
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-26 17:55:21.783
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-26 17:55:23.171
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-26 17:55:25.939
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1/emf-compare.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-26 17:55:34.103
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1/common.
+!SESSION 2019-05-26 21:01:33.623 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180301-0715
+java.version=1.8.0_161
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2019-05-26 21:02:19.251
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\peter'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-26 21:18:26.756
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0/juno/patches.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-26 21:18:28.660
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-26 21:18:33.780
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-26 21:18:35.019
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-26 21:18:37.671
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1/emf-compare.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-26 21:18:45.535
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1/common.
+
+!ENTRY com.yattasolutions.umllab.ui 4 0 2019-05-26 22:33:40.619
+!MESSAGE No valid license is available.
+!STACK 0
+com.yattasolutions.obf.kk.g: No license found for UML Lab.
+	at RN7EYSJUKIF4ZTR5UGGMW2YPMQ5FECKUN7D4QKB4ON46OAMHS3XMDSUGNEOBHLOXCTI4XEWYHU46K22KHKMIZJB5B453XWRHAPYV7YAWOVR33QVH52RRRN3FATMIWJJHEBLTLHUCV24YN47PNVZIFITOXMZ5D72Q5FMJN4I77DQFOYLF2WEZ4UATXH5EA5PE4XOUKUBZFMAIBZVICCFPU4SNBWUTHUGAF2LW76XUNRMZDS5WXQNQVJYRIF4JOBFNC5V7KMOTLYLGKTC4XGF4HRFE5ZFOSBYSHE37NCJYB5CYXKAZIMXOEHATVYW5UDVDLAO3UM2W4ZNPKN6ZOT44LZMLGPGTNEUXPOWSFLEBUFK2GQRYF43XIEISF7CM5GA4P7X7S3CSPUL2MAEPDCLWD5LWCDESGMJLEM3H354IICGELSTWRZYGZGR3M3SSCM56J6C6DR74BGASQLK3ZJCCRYJR7DIVT7VMIIZCL3CMUZQMJGNTBMK6SGZINSFHGAVTXAQLP37ZVESIUYROGA6YS57J3QD3FZW7RDUBBTYYLWZB5JZ4GBTYML6QINN7ZCMMET32HNWCJG7J3XWGD4QIFX4RWFVY3T2SHUBWQOIZJ4JLVGI6TR7UAF3JCBT7CHKOBKNRPMGC5DWJHNL7MYMG5YUKXSVNCVCFZO53VSETOP5RLQ3PWNGFAKV6ZEV5JUZNBPQTL2Q5PRWC5EKGBA2KXYYES7LQEKKEX4ODJMWPFN3K6HGP57JESDUCZZ4HPGWY46B6IXMWWWEXSEBXNKEVDJJC2U7EAUDEQI44E6B7S6VWSDYTA4RHUTE7NXI6VBCIM26T234BFRAYOE6PLYOYSHMWKSB4VRTLVMXIP3YSCGSYA72MW5C3JI5N5TL4QKUDKMFUQOASIWL6BPIFCOHAYVPQXWEVKE6VTZVRIDQYB246U635HHFD3R2OQ4GM45BBZDELO5IT3TLNYXWE3TOPDR7QPHRR77SNVJ445VLEGOT23VHH5OIDFB4MUERCZEGLEJW4JIX43P7GMN7P77HNMC4ULG25HDVYQY54ZWO2AYB7D4C5GLVTS4TA4S2DMHOMBYQH56BPTQQ6KCIIMK4JMQSGN42PCQHSF4ONNM5EAPD6MI3JMB4OYV5AK2HINKFR65SICL7GTIIWNHKILRHZE4ISZ3VUITV7UDHLAK25DDNCJJKFSKYI6BGPYYOLFQIL3Y57BECBQI32MXX6B4GHSGT6GNMDIG4C5VELPGLQ725PCNM5CXZB2SW2DDBOIUY6ECUMISCVZ7PNGMYR2W5T6XY5RFP5M3DNLOG7TQDCTWAKQY3LAVPSVHRUQZYPRVY5O6KAR6QEJ554IVSLU5ZCRRH4WKVQW35MDNBRJEFI352YMCM55YIYEON3VR2XDOPDNLH3RSCSB73HB5M7O3I3SJBZFUFFHLVTDI3NTDJH2WH5DQ2ABUN2PN4W7UAD273VJ5QWWNP5K3HAVBFTMQ6CKICZACAJU35L25EUHCPUTZ75OXXM5BBD2C46ZA57BMN47FE4XAHQ3NUPCJZWKDTQFHGY2N5RCTXJSOVEARCQSFLLL7E4ABMEQ5KVJSOLVWOH3JT6HPF64PNDHUQYIOD2TIAOIAFH5VQFO3F72Z4FT6MEKZZPXQT4U2FQYGRAC3U5C2FLI2OHGWTEPSXS4ZZDFLCWW63XRJGFA5LV2LVX57BJQNGBY3HUPOA2J4BJWCBKE544CMACERMIUNNSGNTFURQITF4WCWGN4UTDGWCOU44MRX2RAYSCFS4V7P5GAS4D47TFZ2AHVTMKXDZ6YWMDOOUHGMAECVT3AZDLY2SI2MK5VHTI7CA6QIX4HL26OWEBHOBH7YAM4JCZ3ZSA7NMIXK7NL56GA5CBQLVQX24QOXDR773MUKM2APHUPNBXQHEKKK74DCEIVABJK3SGOEVFZ7IEBGZYMHCZDVXETOIW7KCRRFLHXAZNPXH4WUMMDLW6XSY22SBN7MLURPXKJRWIPDEDFRQS4FERW4CZOFALOH2VBEFJRQCGLTI662624L27G7H63WOWWOOBXLTV5UD4PB56EQVMJC2EKLTRL2Y4GYML5FWWUM4AX5E4TQNMOOCQ4JGAPDR62B2OBCK5M65LP2GG74UN2JT7XJD3WLL4ZHRCEEVBMUTR2EIWPJXS2XBXH4AJQ25SVLJQHLCOZRWEZMSPZWCNSQH37G2HFM5JQWFD7LND4XTOQUUPQVHSTTK5IMRWU3CAYOYT7NNEJWWJQKY6UMPU6Z6W6WBK34KZLQ4KSCWRCC2IAC4HNTEFQE6DRVBFYSCWQXJT6NNZNRGYZI4KOURIPQSISIIHH4TK6TVDDGVJN57CMDNH7NI3U42AWQTHMVFGY3D52WRD6NC63W7C5GJH2TFOZTFYHB5GGIG2KJUVMGOC7D43NSGMSBE5FPUT7CJE6XAVNUROBSZJEBPYE4LXHPCM723TJBGHINKXGYKBCLCAED6USCUU75IRR4XKZG3VSU35CUM3NKGNGBXZDFACJDI7DNADBLVQNMMTAHAACMVGHX7VEJANHUL2NN5YNVJ3ON5YLLZZ6GY2FLHDWSO4T2OTC42LJKJ2LRXDM6I2KXFHRRTPSECYXIREJCOND3OPR2N6DUEN2C5KFWQM537HBVCLS36YSDU75JDHM4QIJT6LMY7IMTYTCRQDJPDFTZ4FRHI4MF72TJVUAEYXKOYROZLRHUNC2KVPZKND3IFZYCEZ37IXKOAQVV2MBIRPKAYA7TBRMJI335YI6FRBGBFJWMVXD4OEMBQFFQBZPCEZ4HHN66IBBXFLQ3IZRDFBCIKOO6BIIQAEBGOMIONEXW5WNDQO5ZCXEXEUYUZWUW4VJCGP5LHPWHX2CVJVJHLFBRWIH4JWOSAKJ7HTGBRHUFMHVWXWND34J3RLDFFMCQMTJVE3YRFUANVMVH2DDIBT2RUCZASICO2HDXW7SZ7L4RU3M57FZZLZGYP7KQC3HEDBXCFVBLBW53NIKQVPPQTZ6XMPSX4JXXESNCF3KR3KQJGFZRCHWTS4MHERDDR5OMMEFPDNTEDLEEVJVMZEFIYHLS6QZ535PTUAZ4CFHIGBYMSAPELBLVRPZ2OAZKOLTBIYKGEN7D5UMPHVOOWAQ6C7PLFD3YLJA2AGORSAAHMPI47MGFVHQI3RAURZOQSY4UUA5LCRP3WQGJBSZAA3OCFDZQGOLXVXVILFC5GNQHCEMY3O4R4H2ZVSJAA36BR4LDOQHGG3KGIZ4LGTRGZUZPKRZACVI24CO5JDWLS4HPSEVX4BDFS7K75YYZNSVQ4M7PD5SYMGMABM2OTWLBNJ74INUZPNW5I4DGHPPKPFYKQXJZP5IOCX3MRHLD7HGYW4ELFG4AMSMBS5YBHLMGUFHIVJYRSIYVFPG/LWS4SATNMKND7GGQGXLLF6MDTD.<unknown>(Unknown Source)
+!SESSION 2019-05-27 14:11:30.704 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180301-0715
+java.version=1.8.0_161
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY com.yattasolutions.umllab.ui 4 0 2019-05-27 14:12:25.597
+!MESSAGE No valid license is available.
+!STACK 0
+com.yattasolutions.obf.kk.g: No license found for UML Lab.
+	at XLQVT2QADGS6BZDLMHSQ6GR52F56TPGJVB6M7HKUW2VGX3YUG3R33LGHXYVA4J4GDVR6VKLPETEWG6UJVRAIZN6MASF5EAKZWSVALBIC45WNJVYDPFZY2WIEQ73L6VVGJ5UKGT3AJX6H5GMDVVWGIVRMAS4CBFCFHJLYR6R6E6YJ2JZVJD3KEFKWBAKC3ACMEXOB4BEBVOPUGTJENLURWJTCNKOFWRJMCFDXZYL2QCPIWD7FYKVW5Z76FM5DWVEX7UKEWZDCPY6DZVOIYVDU3WS3GWVGHZ5AJYI24GKURPOHGVTR2SZADJZ5GMJQQN2KB6B4BD5QKX25TT2ESBZTIOCRSRHNDDMZ3ERKOFJ7KYEYBPF3TAEEFPSL2OX6SJZD7ERO2PLTFL3NMVZSM67AVJ7U65SBZ6LANAKV4OIPK52SJIWMBY5HUBPOUQZUSN7IVKJDPMC4WUU3HUVG22A6SNMWIE5I42UQYLHPEJCVEEB2WE5OO6GGV6XE6AE7QXFAOVL2LPBG37UE3ZPFYQEWQLBJYWPDHUQ7BN7SPHEHMYMH2ZGJILWWTMXYU4ZHCGGFQBWOPXZR6BK6D5ZHUDTHDCTSOYTNIQ3PUEJ3IQUYJBCMSAJXIU3CA4KE7MFKTSJX5GVSR2UIW2LAVRSOCXKJXSZOGZZQVPBCRZRZDFEEVX2MIPU425LEYX43L76ZOUETZUQYADRTMZD2FBA53IRMBZZMAOU67IEPQFK64WNHCMCTHPILM7AH6X4YUDLJQYSWYILP42B6JZWW7WWPPFYWWNH7IOJZNVOL4GOUPTPLQ5HWDAGF2ITEWV7CCN7IOQLDKEHWK7FUZ7NVHSCAMDQHYTARYHZQX5YR7FDOIRTBZ5TG4LIWCEKIG6D5SMPT2AKNKIC7AB3NPHZJFSQVUQEC4B2DFS7NPJADZN6TK34JNNTMJUYJM5S7CDGVCBD3CGAVYXLXRBOSVRCSR4QDMRCZZUBIX7NAVGQNIUK2L3ZXIWMYVKLKNL7ERQ6KRI6AIBYLFQRI3P4IGC2HXMCGJHM6AHRHNZUIWTSU5K57XXHCEEA4MLFUXVP7A5MH4ATEGCHMQZGXX77OB4ZRYO6LO235IM23BT2W5AS5LYPUBPWX3ZGH4MW2K7O2LV4A2IPY23KK5VPX6ITKINVQ6P6TIEEC4WMVWHRDSDD4SPHSZ4L6RUERS3MPTCF5Q6JRVJHON763FXCINOIIKWPKPRDHZNM3HVTTRSXIEDGARZTS4Z4QG5YJVC4KYFBRR3LP5OAEXV3YRPO4A7XYGB44GLYLCGNOLIFAM72E5Z2P4ZHIUDUNPZ6CIR45QPKZVZEHZ7TXKQV2SMD6VVGEDOVPXYOAYROV4ZI7XSPS5GHBOKQHBCXYTBVH5HOL4NWWZDCJR5D56HHVCQYEYDUQW4EXMQXSFUMFQTTDAFU5SHRDLVXUFRQEYHWDM2CEI3TNOWI47E4CSU4FRENOJKQGML2LDWE64NYWY3HA4JUMAPXLJBEDSWECN3WREUOZIVR5GTJRBJI23TG3GE2QHFBELEPJCRE7ZGBGNESFEUUJXICGSIGD5XCKWHRERCEXYJSYFPCKIJEHII5ALJ3LRB5TRBWGTJFZI5SQQKEUHGWI7N47RX6Q22UYMUE2LX5MBPBHSFZRTH6CYUUW4HHHING52WMPVXOVSYCTGPIW5SVJMM7I52IKU67A2FQST3YE4LUOPMMLIBJHDVUCDBWF566HIL5MGHPWDNC5FGIN6ISN3U3ITJRXRSNJME6MEUU7W5VZZOYC572HIOYEHB5CIEUHUDGVKTCD35ORIRT3XD/NOZD3OTSFTXN2SLV7IAASEBZYB.<unknown>(Unknown Source)
+
+!ENTRY org.eclipse.egit.ui 2 0 2019-05-27 14:12:41.508
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\peter'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-27 14:39:01.471
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0/juno/patches.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-27 14:39:03.470
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-27 14:39:08.770
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-27 14:39:10.404
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.0.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-27 14:39:13.102
+!MESSAGE No repository found at http://update.uml-lab.com/1.10.1/emf-compare.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2019-05-27 14:39:20.806
+!MESSAGE No repository found at http://update.uml-lab.com/1.8.1/common.

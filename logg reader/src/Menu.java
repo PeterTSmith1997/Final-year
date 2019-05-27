@@ -1,9 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -14,7 +16,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 public class Menu extends JFrame {
-	Reader reader = new Reader();
+	private ArrayList<Hits> hits = new ArrayList<>();
+	private Map<String, Integer> orrcancesOfip = new HashMap<String, Integer>();
+	
+	Reader reader = new Reader(this);
 	Database database = new Database();
 
 	public Menu() {
@@ -90,6 +95,23 @@ public class Menu extends JFrame {
 				}
 			}
 		});
+	}
+
+	/**
+	 * @return the hits
+	 */
+	public ArrayList<Hits> getHits() {
+		return hits;
+	}
+
+	/**
+	 * @param hits the hits to set
+	 */
+	public void setHits(ArrayList<Hits> hits) {
+		this.hits = hits;
+	}
+	public void addHit(Hits h) {
+		hits.add(h);
 	}
 
 }

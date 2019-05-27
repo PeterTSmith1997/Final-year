@@ -4,3 +4,6 @@
 1558647593555	Rename method 'init'
 1558648679257	Rename field 'inProgressScrollPane'
 1558648815765	Rename local variable 'gbc_inProgressScrollPane'
+1558889465075	Infer generic type arguments
+1558890067596	Encapsulate field 'orrcancesOfip'
+1558906529575	Encapsulate field 'hits'

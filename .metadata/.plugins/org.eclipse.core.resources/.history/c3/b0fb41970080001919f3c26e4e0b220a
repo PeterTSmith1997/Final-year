@@ -1,0 +1,34 @@
+
+public class Hits {
+	private String iPaddr;
+	private String request;
+	private String dateTime;
+	private int response;
+	private int size;
+	private String referer;
+	private String userAgent;
+	private String protocal;
+
+	/**
+	 * @param iPaddr
+	 * @param request
+	 * @param dateTime
+	 * @param response
+	 * @param size
+	 * @param referer
+	 * @param userAgent
+	 */
+	public Hits(String iPaddr, String request, String protocal, String dateTime,
+			int response, int size, String referer, String userAgent) {
+		this.iPaddr = iPaddr;
+		this.request = request;
+		this.protocal = protocal;
+		this.dateTime = dateTime;
+		this.response = response;
+		this.size = size;
+		this.referer = referer;
+		this.userAgent = userAgent;
+	}
+
+
+}
