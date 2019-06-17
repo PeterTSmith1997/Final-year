@@ -18,6 +18,8 @@ import javax.swing.filechooser.FileSystemView;
 public class Menu extends JFrame {
 	private ArrayList<Hits> hits = new ArrayList<>();
 	private Map<String, Integer> orrcancesOfip = new HashMap<String, Integer>();
+	private Map<String, Integer> referers = new HashMap<String, Integer>();
+	private Map<String, Integer> protcals = new HashMap<String, Integer>();
 	
 	Reader reader = new Reader(this);
 	Database database = new Database();
@@ -112,6 +114,48 @@ public class Menu extends JFrame {
 	}
 	public void addHit(Hits h) {
 		hits.add(h);
+	}
+
+	/**
+	 * @return the orrcancesOfip
+	 */
+	public Map<String, Integer> getOrrcancesOfip() {
+		return orrcancesOfip;
+	}
+
+	/**
+	 * @param orrcancesOfip the orrcancesOfip to set
+	 */
+	public void setOrrcancesOfip(Map<String, Integer> orrcancesOfip) {
+		this.orrcancesOfip = orrcancesOfip;
+	}
+
+	/**
+	 * @return the referers
+	 */
+	public Map<String, Integer> getReferers() {
+		return referers;
+	}
+
+	/**
+	 * @param referers the referers to set
+	 */
+	public void setReferers(Map<String, Integer> referers) {
+		this.referers = referers;
+	}
+
+	/**
+	 * @return the protcals
+	 */
+	public Map<String, Integer> getProtcals() {
+		return protcals;
+	}
+
+	/**
+	 * @param protcals the protcals to set
+	 */
+	public void setProtcals(Map<String, Integer> protcals) {
+		this.protcals = protcals;
 	}
 
 }
