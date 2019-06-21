@@ -20,10 +20,11 @@ public class Menu extends JFrame {
 	private Map<String, Integer> orrcancesOfip = new HashMap<String, Integer>();
 	private Map<String, Integer> referers = new HashMap<String, Integer>();
 	private Map<String, Integer> protcals = new HashMap<String, Integer>();
+	private Map<String, Integer> pages = new HashMap<String, Integer>();
 	
 	Reader reader = new Reader(this);
 	Database database = new Database();
-
+	LogData logUI = new LogData(this);
 	public Menu() {
 		setSize(new Dimension(100, 300));
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -73,11 +74,19 @@ public class Menu extends JFrame {
 		JButton btnAddKnownIps = new JButton("Add known IPs");
 		btnAddKnownIps.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddIPUI addIP = new AddIPUI();
-				addIP.setVisible(true);
+				
 			}
 		});
 		panel_1.add(btnAddKnownIps);
+		
+		JButton btnViewData = new JButton("View data");
+		btnViewData.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				logUI.makeui();
+			
+			}
+		});
+		panel_1.add(btnViewData);
 	}
 
 	/**
@@ -128,6 +137,20 @@ public class Menu extends JFrame {
 	 */
 	public void setOrrcancesOfip(Map<String, Integer> orrcancesOfip) {
 		this.orrcancesOfip = orrcancesOfip;
+	}
+
+	/**
+	 * @return the pages
+	 */
+	public Map<String, Integer> getPages() {
+		return pages;
+	}
+
+	/**
+	 * @param pages the pages to set
+	 */
+	public void setPages(Map<String, Integer> pages) {
+		this.pages = pages;
 	}
 
 	/**

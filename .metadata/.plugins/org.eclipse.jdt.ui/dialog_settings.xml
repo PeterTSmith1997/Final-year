@@ -118,6 +118,11 @@
 		<item value="660" key="DIALOG_X_ORIGIN"/>
 		<item value="150" key="DIALOG_Y_ORIGIN"/>
 	</section>
+	<section name="JavaSearchPage">
+		<item value="0" key="HISTORY_SIZE"/>
+		<item value="false" key="CASE_SENSITIVE"/>
+		<item value="11" key="INCLUDE_MASK"/>
+	</section>
 	<section name="completion_proposal_size">
 	</section>
 	<section name="AddGetterSetterDialog">

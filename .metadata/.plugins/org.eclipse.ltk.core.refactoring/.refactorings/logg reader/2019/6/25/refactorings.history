@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;lblTimeOfDay&apos; in &apos;LogData&apos; to &apos;lblTopPages&apos;&#x0D;&#x0A;- Original project: &apos;logg reader&apos;&#x0D;&#x0A;- Original element: &apos;LogData.lblTimeOfDay&apos;&#x0D;&#x0A;- Renamed element: &apos;LogData.lblTopPages&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;lblTimeOfDay&apos;" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;{LogData.java[LogData^lblTimeOfDay" name="lblTopPages" references="true" setter="false" stamp="1560874984121" textual="false" version="1.0"/>
+</session>

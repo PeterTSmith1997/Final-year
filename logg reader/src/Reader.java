@@ -35,9 +35,10 @@ public class Reader {
 			// System.out.println(h.toString());
 		}
 		Analise analise = new Analise();
-		// menu.setOrrcancesOfip(analise.getIpCounts(menu.getHits()));
-		// menu.setReferers(analise.getRefererCounts(menu.getHits()));
-//		menu.setProtcals(analise.getProtocalCounts(menu.getHits()));
+		menu.setOrrcancesOfip(analise.getIpCounts(menu.getHits()));
+		menu.setReferers(analise.getRefererCounts(menu.getHits()));
+		menu.setProtcals(analise.getProtocalCounts(menu.getHits()));
+		menu.setPages(analise.getPageCounts(menu.getHits()));
 		analise.getTimeCounts(menu.getHits());
 
 	}

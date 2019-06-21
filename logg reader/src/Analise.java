@@ -98,6 +98,31 @@ public class Analise {
 		}
 		return countMap;
 	}
+	public Map<String, Integer> getPageCounts(ArrayList<Hits> hits) {
+		Map<String, Integer> countMap = new TreeMap<String, Integer>();
+		for (int i = 0; i < hits.size(); i++) {
+			String key = hits.get(i).getRequest();
+			if (countMap.containsKey(key)) {
+				int count = countMap.get(key);
+				count++;
+				countMap.put(key, count);
+			} else {
+				countMap.put(key, 1);
+			}
+		}
+		for (Entry<String, Integer> val : countMap.entrySet()) {
+			if (val.getValue() < 20) {
+				System.out.println(val.getKey() + " shows up " + val.getValue()
+						+ " times");
+			}
+			else {
+				System.err.println(val.getKey() + " shows up " + val.getValue()
+				+ " times");
+		
+			}
+		}
+		return countMap;
+	}
 
 	public int getTotalData(ArrayList<Hits> hits) {
 		int total = 0;
