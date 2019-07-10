@@ -1,0 +1,134 @@
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+
+import java.awt.Dimension;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import java.awt.Component;
+import javax.swing.ScrollPaneConstants;
+
+public class ipDetails extends JFrame {
+	private Menu menu;
+	private String ip;
+	private int timesVisted;
+	private int totalData;
+	private Analise analise = new Analise();
+	private String hitData;
+	private JTextField textField;
+	private JTextField textField_1;
+
+	/**
+	 * @param menu
+	 */
+	public ipDetails(Menu menu, String ip) {
+		this.menu = menu;
+		this.ip = ip;
+
+		makeUi();
+	}
+
+	public void makeUi() {
+		setTitle("Ip details for " + ip);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(new Dimension(600, 520));
+		setLocationRelativeTo(null);
+		setResizable(false);
+		// Get data
+		setTimesVisted(menu.getOrrcancesOfip().get(ip));
+		setTotalData(analise.getTotalDataForIP(menu.getHits(), ip));
+		ArrayList<Hits> hits = menu.getHits();
+		hitData = "";
+		for (Hits h : hits) {
+			if (h.getiPaddr().equals(ip)) {
+				hitData += h.toString() + "\n";
+			}
+		}
+		JPanel panelTop = new JPanel();
+		getContentPane().add(panelTop, BorderLayout.NORTH);
+
+		JLabel title = new JLabel("Ip details for " + ip);
+		panelTop.add(title);
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setMaximumSize(new Dimension(100, 32767));
+		getContentPane().add(panel_1, BorderLayout.SOUTH);
+		panel_1.setLayout(new BorderLayout(0, 0));
+
+		JLabel lblAllHitsFor = new JLabel("All hits for this IP");
+		panel_1.add(lblAllHitsFor, BorderLayout.NORTH);
+
+		JTextArea txtrKo = new JTextArea(6, 21);
+		txtrKo.setMaximumSize(new Dimension(100, 21));
+		txtrKo.setAlignmentX(Component.LEFT_ALIGNMENT);
+		txtrKo.setAlignmentY(Component.TOP_ALIGNMENT);
+		txtrKo.setWrapStyleWord(true);
+		txtrKo.setLineWrap(true);
+		txtrKo.setText(hitData);
+		txtrKo.setEditable(false);
+
+		JScrollPane sp = new JScrollPane(txtrKo,
+				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		sp.setMaximumSize(new Dimension(100, 21));
+		panel_1.add(sp);
+
+		JPanel panel = new JPanel();
+		panel.setMinimumSize(new Dimension(10, 200));
+		getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(new GridLayout(0, 2, 0, 0));
+
+		JLabel label = new JLabel("Times visted");
+		panel.add(label);
+
+		textField = new JTextField();
+		textField.setText((String) null);
+		textField.setEditable(false);
+		textField.setColumns(10);
+		panel.add(textField);
+
+		JLabel label_1 = new JLabel("Total data sent");
+		panel.add(label_1);
+
+		textField_1 = new JTextField();
+		textField_1.setText("0");
+		textField_1.setEnabled(false);
+		textField_1.setEditable(false);
+		panel.add(textField_1);
+	}
+
+	/**
+	 * @return the timesVisted
+	 */
+	public int getTimesVisted() {
+		return timesVisted;
+	}
+
+	/**
+	 * @param timesVisted
+	 *            the timesVisted to set
+	 */
+	public void setTimesVisted(int timesVisted) {
+		this.timesVisted = timesVisted;
+	}
+
+	/**
+	 * @return the totalData
+	 */
+	public int getTotalData() {
+		return totalData;
+	}
+
+	/**
+	 * @param totalData
+	 *            the totalData to set
+	 */
+	public void setTotalData(int totalData) {
+		this.totalData = totalData;
+	}
+
+}

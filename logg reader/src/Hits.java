@@ -216,10 +216,10 @@ public class Hits {
 	 */
 	@Override
 	public String toString() {
-		return "Hits [iPaddr=" + iPaddr + ", request=" + request + ", dateTime="
+		return "iPaddr=" + iPaddr + ", request=" + request + ", dateTime="
 				+ dateTime + ", response=" + response + ", size=" + size
 				+ ", referer=" + referer + ", userAgent=" + userAgent
-				+ ", protocal=" + protocal + "]";
+				+ ", protocal=" + protocal;
 	}
 	
 }

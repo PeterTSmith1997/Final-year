@@ -131,6 +131,15 @@ public class Analise {
 		}
 		return total;
 	}
+	public int getTotalDataForIP(ArrayList<Hits> hits, String ip) {
+		int total = 0;
+		for (Hits h : hits) {
+			if(h.getiPaddr().equals(ip)) {
+			total = total + h.getSize();
+			}
+		}
+		return total;
+	}
 
 	public int getTotalHits(ArrayList<Hits> hits) {
 		return hits.size();

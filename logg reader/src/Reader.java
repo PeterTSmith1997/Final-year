@@ -6,10 +6,10 @@ import java.util.Scanner;
 public class Reader {
 	private Scanner scanner;
 	private File logg;
-	Menu menu;
+	private DataStore dataStore;
 
-	public Reader(Menu menu) {
-		this.menu = menu;
+	public Reader(DataStore dataStore) {
+		this.dataStore = dataStore;
 	}
 
 	public void readFile() {
@@ -31,15 +31,15 @@ public class Reader {
 			Hits h = new Hits(data[0], data[5] + " " + data[6], data[7],
 					data[3] + " " + data[4], response, size, data[10],
 					userAgent);
-			menu.addHit(h);
+			dataStore.addHit(h);
 			// System.out.println(h.toString());
 		}
 		Analise analise = new Analise();
-		menu.setOrrcancesOfip(analise.getIpCounts(menu.getHits()));
-		menu.setReferers(analise.getRefererCounts(menu.getHits()));
-		menu.setProtcals(analise.getProtocalCounts(menu.getHits()));
-		menu.setPages(analise.getPageCounts(menu.getHits()));
-		analise.getTimeCounts(menu.getHits());
+		dataStore.setOrrcancesOfip(analise.getIpCounts(dataStore.getHits()));
+		dataStore.setReferers(analise.getRefererCounts(dataStore.getHits()));
+		dataStore.setProtcals(analise.getProtocalCounts(dataStore.getHits()));
+		dataStore.setPages(analise.getPageCounts(dataStore.getHits()));
+		analise.getTimeCounts(dataStore.getHits());
 
 	}
 
@@ -48,3 +48,4 @@ public class Reader {
 	}
 
 }
+
