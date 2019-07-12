@@ -89,15 +89,15 @@ public class Analise {
 			if (val.getValue() < 20) {
 				System.out.println(val.getKey() + " shows up " + val.getValue()
 						+ " times");
-			}
-			else {
+			} else {
 				System.err.println(val.getKey() + " shows up " + val.getValue()
-				+ " times");
-		
+						+ " times");
+
 			}
 		}
 		return countMap;
 	}
+
 	public Map<String, Integer> getPageCounts(ArrayList<Hits> hits) {
 		Map<String, Integer> countMap = new TreeMap<String, Integer>();
 		for (int i = 0; i < hits.size(); i++) {
@@ -114,11 +114,10 @@ public class Analise {
 			if (val.getValue() < 20) {
 				System.out.println(val.getKey() + " shows up " + val.getValue()
 						+ " times");
-			}
-			else {
+			} else {
 				System.err.println(val.getKey() + " shows up " + val.getValue()
-				+ " times");
-		
+						+ " times");
+
 			}
 		}
 		return countMap;
@@ -131,11 +130,12 @@ public class Analise {
 		}
 		return total;
 	}
+
 	public int getTotalDataForIP(ArrayList<Hits> hits, String ip) {
 		int total = 0;
 		for (Hits h : hits) {
-			if(h.getiPaddr().equals(ip)) {
-			total = total + h.getSize();
+			if (h.getiPaddr().equals(ip)) {
+				total = total + h.getSize();
 			}
 		}
 		return total;
@@ -143,6 +143,69 @@ public class Analise {
 
 	public int getTotalHits(ArrayList<Hits> hits) {
 		return hits.size();
+	}
+
+	public int risk(String ip, DataStore dataStore) {
+		int risk = 0;
+		int orrcancesOfipLog = (int) Math
+				.log(dataStore.getOrrcancesOfip().get(ip));
+		if (orrcancesOfipLog == 0) {
+			orrcancesOfipLog = 1;
+		}
+		int orrcancesOfip = dataStore.getOrrcancesOfip().get(ip);
+		int totalData = getTotalDataForIP(dataStore.getHits(), ip);
+		// look at resposes/requests
+		double responseRisk = 0;
+		double requestRisk = 0;
+		for (Hits h : dataStore.getHits()) {
+			if (h.getiPaddr().equals(ip)) {
+				int response = h.getResponse();
+				if (response == 400) {
+					responseRisk = +1;
+				} else if (response == 401) {
+					responseRisk = +5;
+				} else if (response == 403) {
+					responseRisk = +4;
+				} else if (response == 404) {
+					responseRisk = +3;
+				} else if(response == 500){
+					responseRisk = +0.2;
+				}else if (response == 429) {
+					responseRisk = +2;
+				}
+					else if (response == 200) {
+					responseRisk = -2;
+				}
+				if (containIgnoreCase(h.getRequest(), "wp-admin")) {
+					requestRisk =+3;
+				}				
+				if (containIgnoreCase(h.getRequest(), "login")) {
+					requestRisk = +2;
+				}
+				
+			}
+		
+		}
+		Database database = new Database();
+		double dataBaseRisk = database.getRiskIP(ip);
+		// how often
+		// Agent/known IP
+		System.out.println(orrcancesOfip);
+		System.out.println(orrcancesOfipLog);
+		System.out.println(totalData);
+		System.out.println(responseRisk);
+		System.out.println(requestRisk);
+		System.out.println(dataBaseRisk);
+		risk = (int) Math.round((orrcancesOfipLog * (Math.log(totalData / orrcancesOfip))
+				+ (responseRisk * requestRisk)) + dataBaseRisk);
+		if (risk > 100) {
+			return 100;
+		} else {
+			return risk;
+		}
+	}
+	private static boolean containIgnoreCase(String str, String sub) {
+		return str.toLowerCase().contains(sub.toLowerCase());
 	}
 
 }
