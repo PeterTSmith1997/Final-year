@@ -8,6 +8,23 @@ public class DataStore{
 	private Map<String, Integer> referers = new HashMap<String, Integer>();
 	private Map<String, Integer> protcals = new HashMap<String, Integer>();
 	private Map<String, Integer> pages = new HashMap<String, Integer>();
+	private Map<Integer, Integer> responses = new HashMap<Integer, Integer>();
+	public static final long monthMins = 43800;
+	
+		/**
+	 * @return the responses
+	 */
+	public Map<Integer, Integer> getResponses() {
+		return responses;
+	}
+
+	/**
+	 * @param responses the responses to set
+	 */
+	public void setResponses(Map<Integer, Integer> responses) {
+		this.responses = responses;
+	}
+
 		public DataStore() {}
 
 	/**

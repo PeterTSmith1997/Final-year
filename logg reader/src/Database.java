@@ -89,30 +89,26 @@ public class Database {
 
 	}
 
-	public DefaultTableModel bots() {
-		DefaultTableModel bots = new DefaultTableModel();
-		Object[] row = new Object[3];
-		bots.addColumn("IP");
-		bots.addColumn("Name");
-		bots.addColumn("dis");
-		PreparedStatement stmt = null;
+	public int getRiskIP(String ip) {
+		int risk=0;
 		try {
-			stmt = conn
-					.prepareStatement("SELECT IP address FROM knownip");
-			ResultSet rs = stmt.executeQuery();
-
-			while (rs.next()) {
-				row[0] = rs.getString("IP");
-				row[1]= "n.a";
-				row[2]= "n.a";
-				bots.addRow(row);
+			System.out.println(ip);
+			PreparedStatement stmt = conn
+					.prepareStatement("SELECT Risk FROM "
+							+ "knownip WHERE IP = ?");
+			stmt.setString(1, ip);
+			ResultSet rs =stmt.executeQuery();
+			Boolean moreRecords = rs.next();
+			if(!moreRecords) {
+				System.err.println("no R");
+				return 0;
 			}
-
+			risk = Integer.parseInt(rs.getString("Risk"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return bots;
-	}
+		return risk;
 
+	}
 }

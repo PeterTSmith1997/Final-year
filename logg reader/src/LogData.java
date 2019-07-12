@@ -353,7 +353,7 @@ public class LogData extends JFrame {
 			public void run() {
 				try {
 					LogData frame = new LogData();
-					frame.setVisible(true);
+					//frame.setVisible(true);
 				} catch (Exception e) {e.printStackTrace();}
 			}
 		});

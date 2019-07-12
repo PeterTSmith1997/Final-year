@@ -147,9 +147,11 @@ public class Analise {
 
 	public int risk(String ip, DataStore dataStore) {
 		int risk = 0;
-		int orrcancesOfipLog = (int) Math
+		double avTime = dataStore.getOrrcancesOfip().get(ip)
+				/ DataStore.monthMins;
+		double orrcancesOfipLog = Math
 				.log(dataStore.getOrrcancesOfip().get(ip));
-		if (orrcancesOfipLog == 0) {
+		if (orrcancesOfipLog == 0.00) {
 			orrcancesOfipLog = 1;
 		}
 		int orrcancesOfip = dataStore.getOrrcancesOfip().get(ip);
@@ -161,42 +163,35 @@ public class Analise {
 			if (h.getiPaddr().equals(ip)) {
 				int response = h.getResponse();
 				if (response == 400) {
-					responseRisk = +1;
+					responseRisk = +0.5;
 				} else if (response == 401) {
 					responseRisk = +5;
 				} else if (response == 403) {
 					responseRisk = +4;
 				} else if (response == 404) {
-					responseRisk = +3;
-				} else if(response == 500){
-					responseRisk = +0.2;
-				}else if (response == 429) {
 					responseRisk = +2;
-				}
-					else if (response == 200) {
+				} else if (response == 500) {
+					responseRisk = +0.2;
+				} else if (response == 429) {
+					responseRisk = +2;
+				} else if (response == 200) {
 					responseRisk = -2;
 				}
 				if (containIgnoreCase(h.getRequest(), "wp-admin")) {
-					requestRisk =+3;
-				}				
+					requestRisk = +3;
+				}
 				if (containIgnoreCase(h.getRequest(), "login")) {
 					requestRisk = +2;
 				}
-				
 			}
-		
+
 		}
 		Database database = new Database();
-		double dataBaseRisk = database.getRiskIP(ip);
+		int dataBaseRisk = database.getRiskIP(ip);
 		// how often
-		// Agent/known IP
-		System.out.println(orrcancesOfip);
-		System.out.println(orrcancesOfipLog);
-		System.out.println(totalData);
-		System.out.println(responseRisk);
-		System.out.println(requestRisk);
-		System.out.println(dataBaseRisk);
-		risk = (int) Math.round((orrcancesOfipLog * (Math.log(totalData / orrcancesOfip))
+
+		risk = (int) Math.round((orrcancesOfipLog
+				* (Math.log(totalData / orrcancesOfip)) + avTime
 				+ (responseRisk * requestRisk)) + dataBaseRisk);
 		if (risk > 100) {
 			return 100;
@@ -204,6 +199,7 @@ public class Analise {
 			return risk;
 		}
 	}
+
 	private static boolean containIgnoreCase(String str, String sub) {
 		return str.toLowerCase().contains(sub.toLowerCase());
 	}
