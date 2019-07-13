@@ -1,3 +1,4 @@
+package main;
 /**
  * Class to do Regex on ip adress'
  * 

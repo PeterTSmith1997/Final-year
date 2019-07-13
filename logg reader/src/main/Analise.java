@@ -1,9 +1,12 @@
+package main;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
 public class Analise {
+	private Double dbRiskMod = 0.25;
+	private Double rawRiskMod = 0.75;
 
 	/**
 	 * 
@@ -146,13 +149,13 @@ public class Analise {
 	}
 
 	public int risk(String ip, DataStore dataStore) {
-		int risk = 0;
+		double risk = 0;
 		double avTime = dataStore.getOrrcancesOfip().get(ip)
 				/ DataStore.monthMins;
 		double orrcancesOfipLog = Math
 				.log(dataStore.getOrrcancesOfip().get(ip));
 		if (orrcancesOfipLog == 0.00) {
-			orrcancesOfipLog = 1;
+			orrcancesOfipLog = 0.01;
 		}
 		int orrcancesOfip = dataStore.getOrrcancesOfip().get(ip);
 		int totalData = getTotalDataForIP(dataStore.getHits(), ip);
@@ -190,14 +193,41 @@ public class Analise {
 		int dataBaseRisk = database.getRiskIP(ip);
 		// how often
 
-		risk = (int) Math.round((orrcancesOfipLog
-				* (Math.log(totalData / orrcancesOfip)) + avTime
-				+ (responseRisk * requestRisk)) + dataBaseRisk);
+		risk =  ((orrcancesOfipLog * (Math.log(totalData / orrcancesOfip))
+				+ avTime + (responseRisk * requestRisk)) *rawRiskMod) + (dataBaseRisk * dbRiskMod);
 		if (risk > 100) {
 			return 100;
 		} else {
-			return risk;
+			return (int) risk;
 		}
+	}
+
+	/**
+	 * @return the dbRiskMod
+	 */
+	public Double getDbRiskMod() {
+		return dbRiskMod;
+	}
+
+	/**
+	 * @return the rawRiskMod
+	 */
+	public Double getRawRiskMod() {
+		return rawRiskMod;
+	}
+
+	/**
+	 * @param dbRiskMod the dbRiskMod to set
+	 */
+	public void setDbRiskMod(Double dbRiskMod) {
+		this.dbRiskMod = dbRiskMod;
+	}
+
+	/**
+	 * @param rawRiskMod the rawRiskMod to set
+	 */
+	public void setRawRiskMod(Double rawRiskMod) {
+		this.rawRiskMod = rawRiskMod;
 	}
 
 	private static boolean containIgnoreCase(String str, String sub) {

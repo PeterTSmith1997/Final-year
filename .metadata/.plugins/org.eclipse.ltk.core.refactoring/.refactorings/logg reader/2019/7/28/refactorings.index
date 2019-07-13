@@ -5,3 +5,17 @@
 1562778080695	Rename type 'Menu'
 1562778510568	Rename local variable 'mainUI'
 1562870927692	Rename local variable 'OrrcancesOfipLog'
+1563027810665	Convert local variable 'panel_1' to field
+1563027834839	Convert local variable 'panelTop' to field
+1563027855371	Convert local variable 'title' to field
+1563027875751	Convert local variable 'riskBar' to field
+1563027900144	Convert local variable 'panel_5' to field
+1563027921353	Convert local variable 'panel' to field
+1563027968000	Convert local variable 'panel_3' to field
+1563027988267	Convert local variable 'btnViewDbInfo' to field
+1563028021969	Convert local variable 'panel_2' to field
+1563028044861	Convert local variable 'panel_4' to field
+1563028068250	Convert local variable 'lblAllHitsFor' to field
+1563028090972	Convert local variable 'txtrAllHits' to field
+1563028171110	Convert local variable 'sp' to field
+1563028847947	Move compilation units

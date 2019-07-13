@@ -1,6 +1,8 @@
+package main;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -24,6 +26,7 @@ import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
+import java.awt.Toolkit;
 
 public class LogData extends JFrame {
 	/**
@@ -63,6 +66,16 @@ public class LogData extends JFrame {
 
 	}
 
+	/**
+	 * @param dataStore
+	 */
+	public LogData(DataStore dataStore) {
+		this.dataStore = dataStore;
+		makeui();
+		reader = new Reader(dataStore);
+		updaateGUI();
+	}
+
 	public void makeui() {
 		frmLogFileReader = new JFrame();
 		frmLogFileReader.setTitle("Log file reader");
@@ -98,13 +111,14 @@ public class LogData extends JFrame {
 		gbc_lblTimeOfDay.gridx = 3;
 		gbc_lblTimeOfDay.gridy = 0;
 		frmLogFileReader.getContentPane().add(lblTopPages, gbc_lblTimeOfDay);
-		
+
 		lblTimeOfDay = new JLabel("Time of day");
 		GridBagConstraints gbc_lblTimeOfDayLabel = new GridBagConstraints();
 		gbc_lblTimeOfDayLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTimeOfDayLabel.gridx = 5;
 		gbc_lblTimeOfDayLabel.gridy = 0;
-		frmLogFileReader.getContentPane().add(lblTimeOfDay, gbc_lblTimeOfDayLabel);
+		frmLogFileReader.getContentPane().add(lblTimeOfDay,
+				gbc_lblTimeOfDayLabel);
 
 		botsScrollPane = new JScrollPane();
 		GridBagConstraints gbc_botsScrollPane = new GridBagConstraints();
@@ -113,7 +127,8 @@ public class LogData extends JFrame {
 		gbc_botsScrollPane.fill = GridBagConstraints.BOTH;
 		gbc_botsScrollPane.gridx = 1;
 		gbc_botsScrollPane.gridy = 2;
-		frmLogFileReader.getContentPane().add(botsScrollPane, gbc_botsScrollPane);
+		frmLogFileReader.getContentPane().add(botsScrollPane,
+				gbc_botsScrollPane);
 
 		tbTopIps = new JTable();
 		String ipHeader[] = new String[] { "ip", "Number" };
@@ -128,6 +143,7 @@ public class LogData extends JFrame {
 				String ip = (String) tbTopIps.getValueAt(row, 0);
 				ipDetails details = new ipDetails(dataStore, ip);
 				details.setVisible(true);
+				frmLogFileReader.dispose();
 			}
 		});
 
@@ -145,7 +161,7 @@ public class LogData extends JFrame {
 		gbc_scrollPane_1.gridx = 3;
 		gbc_scrollPane_1.gridy = 2;
 		frmLogFileReader.getContentPane().add(scrollPane_1, gbc_scrollPane_1);
-		
+
 		scrollPane_2 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_2 = new GridBagConstraints();
 		gbc_scrollPane_2.gridheight = 2;
@@ -154,14 +170,13 @@ public class LogData extends JFrame {
 		gbc_scrollPane_2.gridx = 5;
 		gbc_scrollPane_2.gridy = 2;
 		frmLogFileReader.getContentPane().add(scrollPane_2, gbc_scrollPane_2);
-		
+
 		refererTbl = new JTable();
-		String timeHeadder[] = new String[] { "Time", "num"};
+		String timeHeadder[] = new String[] { "Time", "num" };
 		refererlMd = new DefaultTableModel(null, timeHeadder);
 		refererTbl.setModel(refererlMd);
-		
+
 		scrollPane_2.setViewportView(refererTbl);
-	
 
 		serchIPPL = new JPanel();
 		GridBagConstraints gbc_serchIPPL = new GridBagConstraints();
@@ -194,14 +209,14 @@ public class LogData extends JFrame {
 		txtFilter.setColumns(10);
 
 		tblPages = new JTable();
-		
+
 		String pageHeader[] = new String[] { "page", "num times" };
 		topPagesMd = new DefaultTableModel(null, pageHeader);
 		tblPages.setModel(topPagesMd);
-		tblPages.setAutoCreateRowSorter(true); 
+		tblPages.setAutoCreateRowSorter(true);
 		tblPages.setEnabled(false);
-		scrollPane_1.setViewportView(tblPages); 
-		
+		scrollPane_1.setViewportView(tblPages);
+
 		panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
@@ -209,20 +224,19 @@ public class LogData extends JFrame {
 		gbc_panel_1.gridx = 3;
 		gbc_panel_1.gridy = 4;
 		frmLogFileReader.getContentPane().add(panel_1, gbc_panel_1);
-		
+
 		lblSerch = new JLabel("Serch");
 		panel_1.add(lblSerch);
-		
+
 		pageFilter = new JTextField();
 		pageFilter.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				String search = pageFilter.getText();
 				try {
-				setTimesHitPages(Integer.parseInt(search));
-				updaateGUI();
-				}
-				catch (Exception e) {
+					setTimesHitPages(Integer.parseInt(search));
+					updaateGUI();
+				} catch (Exception e) {
 					setTimesHitPages(0);
 					updaateGUI();
 				}
@@ -230,7 +244,7 @@ public class LogData extends JFrame {
 		});
 		panel_1.add(pageFilter);
 		pageFilter.setColumns(10);
-		
+
 		panel_2 = new JPanel();
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.insets = new Insets(0, 0, 0, 5);
@@ -238,12 +252,12 @@ public class LogData extends JFrame {
 		gbc_panel_2.gridx = 1;
 		gbc_panel_2.gridy = 5;
 		frmLogFileReader.getContentPane().add(panel_2, gbc_panel_2);
-		
+
 		btnReadFile = new JButton("Read file");
 		btnReadFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser jfc = new JFileChooser(
-						FileSystemView.getFileSystemView().getDefaultDirectory());
+				JFileChooser jfc = new JFileChooser(FileSystemView
+						.getFileSystemView().getDefaultDirectory());
 				jfc.setDialogTitle("Select a log file");
 				jfc.setAcceptAllFileFilterUsed(false);
 				FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -258,66 +272,72 @@ public class LogData extends JFrame {
 
 				}
 				updaateGUI();
-			
+
 			}
 		});
 		panel_2.add(btnReadFile);
-		
+
 		btnViewKnownIps = new JButton("View known IPs");
 		btnViewKnownIps.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//known UI here
+				// known UI here
 			}
 		});
-		panel_2.add(btnViewKnownIps);JScrollPane scrollPane2 = new JScrollPane(); 
+		panel_2.add(btnViewKnownIps);
+		JScrollPane scrollPane2 = new JScrollPane();
 		getContentPane().add(scrollPane2, BorderLayout.WEST);
-		
+
 		this.frmLogFileReader.setVisible(true);
 
 	}
 
 	private void updaateGUI() {
 		String ipHeader[] = new String[] { "ip", "Number" };
-		topIPsMd = new DefaultTableModel(null, ipHeader);
+		topIPsMd = new DefaultTableModel(null, ipHeader) {
+			@Override
+			public boolean isCellEditable(int row, int columm){
+				return false;
+			}
+		};
 		tbTopIps.setModel(topIPsMd);
 
 		String pageHeader[] = new String[] { "page", "num times" };
 		topPagesMd = new DefaultTableModel(null, pageHeader);
 		tblPages.setModel(topPagesMd);
-		
-		String timeHeadder[] = new String[] { "Time", "num"};
+
+		String timeHeadder[] = new String[] { "Time", "num" };
 		refererlMd = new DefaultTableModel(null, timeHeadder);
 		refererTbl.setModel(refererlMd);
-		
-		
-		for (Entry<String, Integer> val : dataStore.getOrrcancesOfip().entrySet()) {
+
+		for (Entry<String, Integer> val : dataStore.getOrrcancesOfip()
+				.entrySet()) {
 			Integer value = val.getValue();
 			String vs = value.toString();
 			if (val.getValue() >= timesHitIp) {
 				topIPsMd.addRow(new String[] { val.getKey(), vs });
 			}
 		}
-		for(Entry<String, Integer> val : dataStore.getPages().entrySet()) {
+		for (Entry<String, Integer> val : dataStore.getPages().entrySet()) {
 			Integer value = val.getValue();
 			String vs = value.toString();
 			if (val.getValue() >= timesHitPages) {
 				topPagesMd.addRow(new String[] { val.getKey(), vs });
 			}
 		}
-		for(Entry<String, Integer> val : dataStore.getReferers().entrySet()) {
+		for (Entry<String, Integer> val : dataStore.getReferers().entrySet()) {
 			Integer value = val.getValue();
 			String vs = value.toString();
 			if (val.getValue() >= timesHitPages) {
 				if (val.getKey().equals("\"-\"")) {
 					refererlMd.addRow(new String[] { "direct", vs });
-				}
-				else {
-				refererlMd.addRow(new String[] { val.getKey(), vs });
+				} else {
+					refererlMd.addRow(new String[] { val.getKey(), vs });
 				}
 			}
 		}
 
 	}
+
 	/**
 	 * @return the timesHitIp
 	 */
@@ -333,14 +353,16 @@ public class LogData extends JFrame {
 	}
 
 	/**
-	 * @param timesHitIp the timesHitIp to set
+	 * @param timesHitIp
+	 *            the timesHitIp to set
 	 */
 	public void setTimesHitIp(int timesHitIp) {
 		this.timesHitIp = timesHitIp;
 	}
 
 	/**
-	 * @param timesHitPages the timesHitPages to set
+	 * @param timesHitPages
+	 *            the timesHitPages to set
 	 */
 	public void setTimesHitPages(int timesHitPages) {
 		this.timesHitPages = timesHitPages;
@@ -348,13 +370,15 @@ public class LogData extends JFrame {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				try {
 					LogData frame = new LogData();
-					//frame.setVisible(true);
-				} catch (Exception e) {e.printStackTrace();}
+					// frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 	}

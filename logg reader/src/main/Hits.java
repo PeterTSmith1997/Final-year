@@ -1,3 +1,4 @@
+package main;
 public class Hits {
 	private String iPaddr;
 	private String request;

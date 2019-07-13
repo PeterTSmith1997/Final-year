@@ -1,9 +1,15 @@
-import java.sql.*;
+package main;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.table.*;
 
 public class Database {
 	private String driver = "jdbc:ucanaccess://";
@@ -103,12 +109,69 @@ public class Database {
 				System.err.println("no R");
 				return 0;
 			}
-			risk = Integer.parseInt(rs.getString("Risk"));
+			risk = rs.getInt("Risk");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return risk;
 
+	}
+	
+	public void updateRiskIP(String ip, DataStore dataStore) {
+		Analise analise = new Analise();
+		int risk = analise.risk(ip, dataStore);
+		int occurances = getOcourances(ip);
+		int newRisk;
+		if  (occurances == 0) {
+			newRisk = risk;
+			try {
+				PreparedStatement stmt = conn
+						.prepareStatement("INSERT INTO knownip (IP, Type, Risk, occurances)"
+								+ "VALUES (?,?,?,?)");
+				stmt.setString(1, ip);
+				stmt.setInt(2, 9);
+				stmt.setInt(3, newRisk);
+				stmt.setInt(4, 1);
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+			occurances++;
+			newRisk = risk/occurances;
+			try {
+				PreparedStatement stmt = conn.prepareStatement("UPDATE knownip SET Risk=?,occurances=? WHERE IP=?");
+				stmt.setInt(1, newRisk);
+				stmt.setInt(2, occurances);
+				stmt.setString(3, ip);
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	private int getOcourances(String ip) {
+		int occurances = 0;
+		try {
+		PreparedStatement stmt = conn
+				.prepareStatement("SELECT occurances FROM "
+						+ "knownip WHERE IP = ?");
+		stmt.setString(1, ip);
+		ResultSet rs =stmt.executeQuery();
+		Boolean moreRecords = rs.next();
+		if(!moreRecords) {
+			System.err.println("no R");
+			return 0;
+		}
+		occurances = Integer.parseInt(rs.getString("occurances"));
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return occurances;
+	
 	}
 }
