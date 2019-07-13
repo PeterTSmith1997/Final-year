@@ -5,8 +5,8 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 public class Analise {
-	private Double dbRiskMod = 0.25;
-	private Double rawRiskMod = 0.75;
+	private Double dbRiskMod = 0.1;
+	private Double rawRiskMod = 0.90;
 
 	/**
 	 * 
