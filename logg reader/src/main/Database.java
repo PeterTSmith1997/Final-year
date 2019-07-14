@@ -95,7 +95,7 @@ public class Database {
 
 	}
 
-	public int getRiskIP(String ip) {
+	public double getRiskIP(String ip) {
 		int risk=0;
 		try {
 			System.out.println(ip);
@@ -120,9 +120,10 @@ public class Database {
 	
 	public void updateRiskIP(String ip, DataStore dataStore) {
 		Analise analise = new Analise();
-		int risk = analise.risk(ip, dataStore);
+		double risk = analise.risk(ip, dataStore);
 		int occurances = getOcourances(ip);
-		int newRisk;
+		double oldDbRisk = getRiskIP(ip);
+		double newRisk;
 		if  (occurances == 0) {
 			newRisk = risk;
 			try {
@@ -131,7 +132,7 @@ public class Database {
 								+ "VALUES (?,?,?,?)");
 				stmt.setString(1, ip);
 				stmt.setInt(2, 9);
-				stmt.setInt(3, newRisk);
+				stmt.setDouble(3, newRisk);
 				stmt.setInt(4, 1);
 				stmt.executeUpdate();
 			} catch (SQLException e) {
@@ -140,10 +141,10 @@ public class Database {
 			}
 		}else {
 			occurances++;
-			newRisk = risk/occurances;
+			newRisk = (risk+oldDbRisk) /occurances;
 			try {
 				PreparedStatement stmt = conn.prepareStatement("UPDATE knownip SET Risk=?,occurances=? WHERE IP=?");
-				stmt.setInt(1, newRisk);
+				stmt.setDouble(1, newRisk);
 				stmt.setInt(2, occurances);
 				stmt.setString(3, ip);
 				stmt.executeUpdate();
@@ -153,7 +154,7 @@ public class Database {
 			}
 		}
 	}
-	private int getOcourances(String ip) {
+	public int getOcourances(String ip) {
 		int occurances = 0;
 		try {
 		PreparedStatement stmt = conn

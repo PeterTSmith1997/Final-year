@@ -148,7 +148,7 @@ public class Analise {
 		return hits.size();
 	}
 
-	public int risk(String ip, DataStore dataStore) {
+	public double risk(String ip, DataStore dataStore) {
 		double risk = 0;
 		double avTime = dataStore.getOrrcancesOfip().get(ip)
 				/ DataStore.monthMins;
@@ -189,16 +189,13 @@ public class Analise {
 			}
 
 		}
-		Database database = new Database();
-		int dataBaseRisk = database.getRiskIP(ip);
-		// how often
-
-		risk =  ((orrcancesOfipLog * (Math.log(totalData / orrcancesOfip))
-				+ avTime + (responseRisk * requestRisk)) *rawRiskMod) + (dataBaseRisk * dbRiskMod);
+		assert (rawRiskMod+dbRiskMod == 1);
+		risk =  (orrcancesOfipLog * (Math.log(totalData / orrcancesOfip))
+				+ avTime + (responseRisk * requestRisk)) *rawRiskMod;
 		if (risk > 100) {
 			return 100;
 		} else {
-			return (int) risk;
+			return risk;
 		}
 	}
 

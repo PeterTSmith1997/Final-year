@@ -99,7 +99,10 @@ public class ipDetails extends JFrame {
 		panelRiskBar.setMaximumSize(new Dimension(100, 32767));
 		getContentPane().add(panelRiskBar, BorderLayout.SOUTH);
 		panelRiskBar.setLayout(new BorderLayout(0, 0));
-		int risk = analise.risk(ip, dataStore);
+		double riskRaw = analise.risk(ip, dataStore);
+		Database database = new Database();
+		double dataBaseRisk = database.getRiskIP(ip);
+		int risk = (int) (riskRaw + (dataBaseRisk * analise.getDbRiskMod()));
 		JLabel lblRiskFactor = new JLabel("Risk Factor: " + risk);
 		lblRiskFactor.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblRiskFactor.setHorizontalAlignment(SwingConstants.CENTER);
@@ -148,12 +151,18 @@ public class ipDetails extends JFrame {
 						"Report iP" + ip, "Comfrim", JOptionPane.YES_NO_OPTION);
 				if (result == JOptionPane.YES_OPTION) {
 					Database database = new Database();
-					database .updateRiskIP(ip, dataStore);
-
+					database.updateRiskIP(ip, dataStore);
+					dataStore.addReportedIP(ip);
+					btnReportIp.setEnabled(false);
 				}
 
 			}
 		});
+		if (dataStore.getReportedIps().contains(ip)) {
+			btnReportIp.setEnabled(false);
+		} else {
+			btnReportIp.setEnabled(true);
+		}
 		buttonPanel.add(btnReportIp, BorderLayout.WEST);
 
 		highLevelPanel = new JPanel();

@@ -33,7 +33,6 @@ public class Reader {
 					data[3] + " " + data[4], response, size, data[10],
 					userAgent);
 			dataStore.addHit(h);
-			// System.out.println(h.toString());
 		}
 		Analise analise = new Analise();
 		dataStore.setOrrcancesOfip(analise.getIpCounts(dataStore.getHits()));
@@ -41,7 +40,7 @@ public class Reader {
 		dataStore.setProtcals(analise.getProtocalCounts(dataStore.getHits()));
 		dataStore.setPages(analise.getPageCounts(dataStore.getHits()));
 		analise.getTimeCounts(dataStore.getHits());
-
+		
 	}
 
 	public void setFile(String pathToFile) {

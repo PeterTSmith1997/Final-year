@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class DataStore{
 	private ArrayList<Hits> hits = new ArrayList<>();
+	private ArrayList<String> reportedIps = new ArrayList<>();
 	private Map<String, Integer> orrcancesOfip = new HashMap<String, Integer>();
 	private Map<String, Integer> referers = new HashMap<String, Integer>();
 	private Map<String, Integer> protcals = new HashMap<String, Integer>();
@@ -24,6 +25,23 @@ public class DataStore{
 	 */
 	public void setResponses(Map<Integer, Integer> responses) {
 		this.responses = responses;
+	}
+
+		/**
+	 * @return the reportedIps
+	 */
+	public ArrayList<String> getReportedIps() {
+		return reportedIps;
+	}
+
+	/**
+	 * @param reportedIps the reportedIps to set
+	 */
+	public void setReportedIps(ArrayList<String> reportedIps) {
+		this.reportedIps = reportedIps;
+	}
+	public void addReportedIP(String ip) {
+		reportedIps.add(ip);
 	}
 
 		public DataStore() {}
