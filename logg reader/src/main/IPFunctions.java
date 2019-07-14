@@ -1,36 +1,41 @@
 package main;
-/**
- * Class to do Regex on ip adress'
- * 
- * @author peter, based off https://www.mkyong.com/regular-expressions/how-to-validate-ip-address-with-regular-expression/
- * @version 1.0.0
- */
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
+
+import com.maxmind.geoip2.DatabaseReader;
+import com.maxmind.geoip2.exception.GeoIp2Exception;
+import com.maxmind.geoip2.model.CityResponse;
+import com.maxmind.geoip2.model.CountryResponse;
+import com.maxmind.geoip2.record.Country;
 
 public class IPFunctions {
-	private Pattern pattern;
-	private Matcher matcher;
 	
-	private static final String IPADDRESS_PATTERN = 
-			"^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
+	File database = new File("database\\GeoLite2-City.mmdb");
 	
 	/**
 	 * 
 	 */
 	public IPFunctions() {
-		pattern = Pattern.compile(IPADDRESS_PATTERN);
 	}
-	/**
-	 * @param ip to ip to validate
-	 * @return bool state of ip
-	 */
-	public boolean validate(String ip) {
-		matcher = pattern.matcher(ip);
-		return matcher.matches();
+
+	public String getLocation(String ip) {
+		try {
+			DatabaseReader reader = new DatabaseReader.Builder(database).build();
+			InetAddress ipadress = InetAddress.getByName(ip);
+			CityResponse response = reader.city(ipadress);
+			Country country = response.getCountry();
+			return country.getIsoCode();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (GeoIp2Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return null;
 	}
 	
+
 }

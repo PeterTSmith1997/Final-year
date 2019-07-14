@@ -150,6 +150,8 @@ public class Analise {
 
 	public double risk(String ip, DataStore dataStore) {
 		double risk = 0;
+		IPFunctions functions = new IPFunctions();
+		System.err.println(functions.getLocation(ip));
 		double avTime = dataStore.getOrrcancesOfip().get(ip)
 				/ DataStore.monthMins;
 		double orrcancesOfipLog = Math
