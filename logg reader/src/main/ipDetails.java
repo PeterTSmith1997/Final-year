@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,28 +32,35 @@ public class ipDetails extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private DataStore dataStore;
-	private String ip;
-	private int timesVisted;
-	private int totalData;
 	private Analise analise = new Analise();
-	private JTextField textFieldTimesVisted;
-	private JTextField textFieldTotalData;
-	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	private JButton btnViewDbInfo;
+	private JPanel buttonPanel;
+	private Database database = new Database();
+	private DataStore dataStore;
+	private JPanel highLevelPanel;
+	private String ip;
+	private IPFunctions ipFunctions;
+	private JLabel lbCounrtyCode;
+	private JLabel lblAllHitsFor;
+	private JLabel lblRiskFactor;
+	private JLabel lblTimesReported;
 	private boolean pane2Loaded = false;
+	private JPanel panel;
+	private JPanel panel_5;
 	private JPanel panelRiskBar;
 	private JPanel panelTop;
-	private JLabel title;
-	private JProgressBar riskBar;
-	private JPanel panel_5;
-	private JPanel panel;
-	private JPanel buttonPanel;
-	private JButton btnViewDbInfo;
-	private JPanel highLevelPanel;
 	private JPanel rawDataPanel;
-	private JLabel lblAllHitsFor;
-	private JTextArea txtrAllHits;
+	private JProgressBar riskBar;
 	private JScrollPane sp;
+	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	private JTextField textFieldCounrtyCode;
+	private JTextField textFieldTimes;
+	private JTextField textFieldTimesVisted;
+	private JTextField textFieldTotalData;
+	private int timesVisted;
+	private JLabel title;
+	private int totalData;
+	private JTextArea txtrAllHits;
 
 	/**
 	 * @param dataStore
@@ -82,7 +90,7 @@ public class ipDetails extends JFrame {
 	public void makeUi() {
 		setAlwaysOnTop(true);
 		setBounds(100, 100, 1169, 686);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setTitle("Ip details for " + ip);
 		setLocationRelativeTo(null);
 		// Get data
@@ -100,10 +108,10 @@ public class ipDetails extends JFrame {
 		getContentPane().add(panelRiskBar, BorderLayout.SOUTH);
 		panelRiskBar.setLayout(new BorderLayout(0, 0));
 		double riskRaw = analise.risk(ip, dataStore);
-		Database database = new Database();
+
 		double dataBaseRisk = database.getRiskIP(ip);
 		int risk = (int) (riskRaw + (dataBaseRisk * analise.getDbRiskMod()));
-		JLabel lblRiskFactor = new JLabel("Risk Factor: " + risk);
+		lblRiskFactor = new JLabel("Risk Factor: " + risk);
 		lblRiskFactor.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblRiskFactor.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRiskFactor.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -188,6 +196,25 @@ public class ipDetails extends JFrame {
 		textFieldTotalData.setText(Integer.toString(totalData));
 		textFieldTotalData.setEditable(false);
 		highLevelPanel.add(textFieldTotalData);
+		
+		lbCounrtyCode = new JLabel("Counrty Code");
+		highLevelPanel.add(lbCounrtyCode);
+		
+		textFieldCounrtyCode = new JTextField();
+		textFieldCounrtyCode.setEditable(false);
+		highLevelPanel.add(textFieldCounrtyCode);
+		textFieldCounrtyCode.setColumns(10);
+		ipFunctions = new IPFunctions();
+		textFieldCounrtyCode.setText(ipFunctions.getLocation(ip));
+		
+		lblTimesReported = new JLabel("Times reported");
+		lblTimesReported.setLabelFor(textFieldTimes);
+		highLevelPanel.add(lblTimesReported);
+		
+		textFieldTimes = new JTextField();
+		highLevelPanel.add(textFieldTimes);
+		textFieldTimes.setColumns(10);
+		textFieldTimes.setText(database.getOcourances(ip)+"");
 
 		rawDataPanel = new JPanel();
 		tabbedPane.addTab("Raw Data", null, rawDataPanel, "View raw data here");
@@ -203,8 +230,9 @@ public class ipDetails extends JFrame {
 		txtrAllHits.setAlignmentY(Component.TOP_ALIGNMENT);
 		txtrAllHits.setWrapStyleWord(true);
 		txtrAllHits.setLineWrap(true);
-		// txtrAllHits.setText(hitData);
+		
 		tabbedPane.addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent e) {
 				int pane = tabbedPane.getSelectedIndex();
 				if (pane == 1 && !pane2Loaded) {

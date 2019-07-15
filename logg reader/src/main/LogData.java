@@ -292,7 +292,7 @@ public class LogData extends JFrame {
 	}
 
 	private void updaateGUI() {
-		String ipHeader[] = new String[] { "ip", "Number" };
+		String ipHeader[] = new String[] { "ip", "Number", "Risk"};
 		topIPsMd = new DefaultTableModel(null, ipHeader) {
 			@Override
 			public boolean isCellEditable(int row, int columm){
@@ -308,13 +308,14 @@ public class LogData extends JFrame {
 		String timeHeadder[] = new String[] { "Time", "num" };
 		refererlMd = new DefaultTableModel(null, timeHeadder);
 		refererTbl.setModel(refererlMd);
-
+		
+		
 		for (Entry<String, Integer> val : dataStore.getOrrcancesOfip()
 				.entrySet()) {
 			Integer value = val.getValue();
 			String vs = value.toString();
 			if (val.getValue() >= timesHitIp) {
-				topIPsMd.addRow(new String[] { val.getKey(), vs });
+				topIPsMd.addRow(new String[] { val.getKey(), vs});
 			}
 		}
 		for (Entry<String, Integer> val : dataStore.getPages().entrySet()) {

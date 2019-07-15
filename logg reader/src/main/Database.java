@@ -131,7 +131,7 @@ public class Database {
 						.prepareStatement("INSERT INTO knownip (IP, Type, Risk, occurances)"
 								+ "VALUES (?,?,?,?)");
 				stmt.setString(1, ip);
-				stmt.setInt(2, 9);
+				stmt.setInt(2, 4);
 				stmt.setDouble(3, newRisk);
 				stmt.setInt(4, 1);
 				stmt.executeUpdate();

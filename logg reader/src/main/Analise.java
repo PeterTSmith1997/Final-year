@@ -151,13 +151,22 @@ public class Analise {
 	public double risk(String ip, DataStore dataStore) {
 		double risk = 0;
 		IPFunctions functions = new IPFunctions();
-		System.err.println(functions.getLocation(ip));
+		String countryCode = functions.getLocation(ip);
 		double avTime = dataStore.getOrrcancesOfip().get(ip)
 				/ DataStore.monthMins;
 		double orrcancesOfipLog = Math
 				.log(dataStore.getOrrcancesOfip().get(ip));
 		if (orrcancesOfipLog == 0.00) {
 			orrcancesOfipLog = 0.01;
+		}
+		double coumtryRisk = 0.00;
+		switch (countryCode) {
+		case "GB":
+			coumtryRisk = 2.5;
+			break;
+
+		default:
+			break;
 		}
 		int orrcancesOfip = dataStore.getOrrcancesOfip().get(ip);
 		int totalData = getTotalDataForIP(dataStore.getHits(), ip);
@@ -192,8 +201,12 @@ public class Analise {
 
 		}
 		assert (rawRiskMod+dbRiskMod == 1);
+		System.out.println(coumtryRisk);
+		System.out.println(requestRisk);
+		System.out.println(requestRisk);
 		risk =  (orrcancesOfipLog * (Math.log(totalData / orrcancesOfip))
 				+ avTime + (responseRisk * requestRisk)) *rawRiskMod;
+		System.err.println(risk);
 		if (risk > 100) {
 			return 100;
 		} else {
