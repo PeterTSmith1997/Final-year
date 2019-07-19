@@ -4,9 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -28,11 +25,28 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
+import net.miginfocom.swing.MigLayout;
+
 /**
  * @author peter
- * @version 18 Jul 2019
+ * @version 19 Jul 2019
  */
 public class LogData extends JFrame {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -5672269806381056292L;
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				new LogData();
+			}
+		});
+	}
 
 	private JFrame frmLogFileReader;
 	private JScrollPane botsScrollPane;
@@ -57,9 +71,11 @@ public class LogData extends JFrame {
 	private JPanel panel_2;
 	private JButton btnReadFile;
 	private Reader reader;
+
 	private DataStore dataStore;
 
 	private JButton btnViewKnownIps;
+	private Font deflautFont;
 
 	public LogData() {
 		dataStore = new DataStore();
@@ -94,57 +110,35 @@ public class LogData extends JFrame {
 
 	public void makeui() {
 		frmLogFileReader = new JFrame();
+		frmLogFileReader.setResizable(false);
 		frmLogFileReader.setTitle("Log file reader");
 
 		frmLogFileReader.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frmLogFileReader.setBounds(100, 100, 1169, 686);
 		frmLogFileReader.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 10, 476, 0, 558, 0, 400, 10,
-				0 };
-		gridBagLayout.rowHeights = new int[] { 10, 5, 127, 501, 44, 60, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 1.0, 0.0,
-				1.0, 0.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 1.0, 1.0, 1.0, 1.0,
-				Double.MIN_VALUE };
-		frmLogFileReader.getContentPane().setLayout(gridBagLayout);
 		getContentPane().setLayout(new BorderLayout(0, 0));
-
+		frmLogFileReader.getContentPane().setLayout(new MigLayout("",
+				"[654px][654px][653px]", "[17px][715px][85px][106px]"));
+        deflautFont = new Font("Tahoma", Font.BOLD, 14);
 		JLabel lbIPs = new JLabel("IPs on site");
 		lbIPs.setHorizontalAlignment(SwingConstants.CENTER);
-		lbIPs.setFont(new Font("Tahoma", Font.BOLD, 14));
-		GridBagConstraints gbc_lbIPs = new GridBagConstraints();
-		gbc_lbIPs.insets = new Insets(0, 0, 5, 5);
-		gbc_lbIPs.gridx = 1;
-		gbc_lbIPs.gridy = 0;
-		frmLogFileReader.getContentPane().add(lbIPs, gbc_lbIPs);
-
+		lbIPs.setFont(deflautFont);
+		frmLogFileReader.getContentPane().add(lbIPs,
+				"cell 0 0,alignx center,aligny center");
+        
 		lblTopPages = new JLabel("Top pages");
 		lblTopPages.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTopPages.setFont(new Font("Tahoma", Font.BOLD, 14));
-		GridBagConstraints gbc_lblTimeOfDay = new GridBagConstraints();
-		gbc_lblTimeOfDay.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTimeOfDay.gridx = 3;
-		gbc_lblTimeOfDay.gridy = 0;
-		frmLogFileReader.getContentPane().add(lblTopPages, gbc_lblTimeOfDay);
+		lblTopPages.setFont(deflautFont);
+		frmLogFileReader.getContentPane().add(lblTopPages,
+				"cell 1 0,alignx center,aligny center");
 
 		lblTimeOfDay = new JLabel("Time of day");
-		GridBagConstraints gbc_lblTimeOfDayLabel = new GridBagConstraints();
-		gbc_lblTimeOfDayLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTimeOfDayLabel.gridx = 5;
-		gbc_lblTimeOfDayLabel.gridy = 0;
+		lblTimeOfDay.setFont(deflautFont);
 		frmLogFileReader.getContentPane().add(lblTimeOfDay,
-				gbc_lblTimeOfDayLabel);
+				"cell 2 0,alignx center,aligny center");
 
 		botsScrollPane = new JScrollPane();
-		GridBagConstraints gbc_botsScrollPane = new GridBagConstraints();
-		gbc_botsScrollPane.gridheight = 2;
-		gbc_botsScrollPane.insets = new Insets(0, 0, 5, 5);
-		gbc_botsScrollPane.fill = GridBagConstraints.BOTH;
-		gbc_botsScrollPane.gridx = 1;
-		gbc_botsScrollPane.gridy = 2;
-		frmLogFileReader.getContentPane().add(botsScrollPane,
-				gbc_botsScrollPane);
+		frmLogFileReader.getContentPane().add(botsScrollPane, "cell 0 1,grow");
 
 		tbTopIps = new JTable();
 		String ipHeader[] = new String[] { "ip", "Number" };
@@ -170,22 +164,10 @@ public class LogData extends JFrame {
 		getContentPane().add(scrollPane, BorderLayout.WEST);
 
 		scrollPane_1 = new JScrollPane();
-		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
-		gbc_scrollPane_1.gridheight = 2;
-		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_1.gridx = 3;
-		gbc_scrollPane_1.gridy = 2;
-		frmLogFileReader.getContentPane().add(scrollPane_1, gbc_scrollPane_1);
+		frmLogFileReader.getContentPane().add(scrollPane_1, "cell 1 1,grow");
 
 		scrollPane_2 = new JScrollPane();
-		GridBagConstraints gbc_scrollPane_2 = new GridBagConstraints();
-		gbc_scrollPane_2.gridheight = 2;
-		gbc_scrollPane_2.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane_2.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_2.gridx = 5;
-		gbc_scrollPane_2.gridy = 2;
-		frmLogFileReader.getContentPane().add(scrollPane_2, gbc_scrollPane_2);
+		frmLogFileReader.getContentPane().add(scrollPane_2, "cell 2 1,grow");
 
 		refererTbl = new JTable();
 		String timeHeadder[] = new String[] { "Time", "num" };
@@ -195,12 +177,7 @@ public class LogData extends JFrame {
 		scrollPane_2.setViewportView(refererTbl);
 
 		serchIPPL = new JPanel();
-		GridBagConstraints gbc_serchIPPL = new GridBagConstraints();
-		gbc_serchIPPL.insets = new Insets(0, 0, 5, 5);
-		gbc_serchIPPL.fill = GridBagConstraints.BOTH;
-		gbc_serchIPPL.gridx = 1;
-		gbc_serchIPPL.gridy = 4;
-		frmLogFileReader.getContentPane().add(serchIPPL, gbc_serchIPPL);
+		frmLogFileReader.getContentPane().add(serchIPPL, "cell 0 2,grow");
 
 		txtFilter = new JTextField();
 		txtFilter.addKeyListener(new KeyAdapter() {
@@ -234,12 +211,7 @@ public class LogData extends JFrame {
 		scrollPane_1.setViewportView(tblPages);
 
 		panel_1 = new JPanel();
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridx = 3;
-		gbc_panel_1.gridy = 4;
-		frmLogFileReader.getContentPane().add(panel_1, gbc_panel_1);
+		frmLogFileReader.getContentPane().add(panel_1, "cell 1 2,grow");
 
 		lblSerch = new JLabel("Serch");
 		panel_1.add(lblSerch);
@@ -262,12 +234,7 @@ public class LogData extends JFrame {
 		pageFilter.setColumns(10);
 
 		panel_2 = new JPanel();
-		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.insets = new Insets(0, 0, 0, 5);
-		gbc_panel_2.fill = GridBagConstraints.BOTH;
-		gbc_panel_2.gridx = 1;
-		gbc_panel_2.gridy = 5;
-		frmLogFileReader.getContentPane().add(panel_2, gbc_panel_2);
+		frmLogFileReader.getContentPane().add(panel_2, "cell 0 3,grow");
 
 		btnReadFile = new JButton("Read file");
 		btnReadFile.addActionListener(new ActionListener() {
@@ -375,14 +342,5 @@ public class LogData extends JFrame {
 			}
 		}
 
-	}
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				LogData frame = new LogData();
-			}
-		});
 	}
 }

@@ -3,8 +3,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,10 +26,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.JSplitPane;
-import javax.swing.Box;
-import java.awt.Rectangle;
-import java.awt.FlowLayout;
+
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -71,6 +68,7 @@ public class ipDetails extends JFrame {
 	private JTextArea txtrAllHits;
 	private JLabel lblLast30Days;
 	private JTextField textFieldLast30Days;
+	private JLabel lblAgentOrBot;
 
 	/**
 	 * @param dataStore
@@ -79,7 +77,7 @@ public class ipDetails extends JFrame {
 
 		this.dataStore = dataStore;
 		this.ip = ip;
-		//database = new Database();
+//		database = new Database();
 		makeUi();
 	}
 
@@ -98,8 +96,7 @@ public class ipDetails extends JFrame {
 	}
 
 	public void makeUi() {
-		setAlwaysOnTop(true);
-		setBounds(100, 100, 1169, 686);
+		setBounds(100, 100, 969, 586);
 		setTitle("Ip details for " + ip);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -142,6 +139,7 @@ public class ipDetails extends JFrame {
 			riskBar.setForeground(Color.RED);
 		}
 		panelRiskBar.add(riskBar, BorderLayout.SOUTH);
+		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
@@ -169,10 +167,11 @@ public class ipDetails extends JFrame {
 						"Report iP" + ip, "Comfrim", JOptionPane.YES_NO_OPTION);
 				if (result == JOptionPane.YES_OPTION) {
 					Database database = new Database();
-					
 					database.updateRiskIP(ip, dataStore, riskRaw);
 					dataStore.addReportedIP(ip);
 					btnReportIp.setEnabled(false);
+					textFieldLast30Days.setText(Integer.toString(database.getOcourancesLast30days(ip)));
+					textFieldTimes.setText(Integer.toString(database.getOcourances(ip)));
 				}
 
 			}
@@ -187,7 +186,7 @@ public class ipDetails extends JFrame {
 
 		highLevelPanel = new JPanel();
 		panel.add(highLevelPanel, BorderLayout.CENTER);
-		highLevelPanel.setLayout(new MigLayout("", "[246.00][193.00px][291.00px]", "[70.00px][70.00px][70.00px][70.00px][70.00px]"));
+		highLevelPanel.setLayout(new MigLayout("", "[246.00][193.00px][291.00px]", "[70.00px][70.00px][70.00px][70.00px][70.00px][70.00px]"));
 
 		JLabel lblTimesVisted = new JLabel("Times visted");
 		highLevelPanel.add(lblTimesVisted, "cell 1 0,alignx center,growy");
@@ -226,7 +225,7 @@ public class ipDetails extends JFrame {
 		textFieldTimes = new JTextField();
 		highLevelPanel.add(textFieldTimes, "cell 2 3,alignx center,growy");
 		textFieldTimes.setColumns(10);
-		textFieldTimes.setText(database.getOcourances(ip)+"");
+		textFieldTimes.setText(Integer.toString(database.getOcourances(ip)));
 		
 		lblLast30Days = new JLabel("Reports last 30 days");
 		highLevelPanel.add(lblLast30Days, "cell 1 4,alignx center,growy");
@@ -236,6 +235,9 @@ public class ipDetails extends JFrame {
 		textFieldLast30Days.setText(Integer.toString(database.getOcourancesLast30days(ip)));
 		highLevelPanel.add(textFieldLast30Days, "cell 2 4,alignx center,growy");
 		textFieldLast30Days.setColumns(10);
+		
+		lblAgentOrBot = new JLabel("Agent or bot");
+		highLevelPanel.add(lblAgentOrBot, "cell 1 5,alignx center");
 		
 
 		rawDataPanel = new JPanel();
