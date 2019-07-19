@@ -1,9 +1,14 @@
 package main;
+
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+/**
+ * @author peter
+ * @version 18 Jul 2019
+ */
 public class Analise {
 	private Double dbRiskMod = 0.1;
 	private Double rawRiskMod = 0.90;
@@ -15,6 +20,11 @@ public class Analise {
 
 	}
 
+	/**
+	 * sets the map of IP counts 
+	 * @param hits - the ArrayList to be sorted
+	 * @return The map of sorted IPs with the no. of times in the dataset
+	 */
 	public Map<String, Integer> getIpCounts(ArrayList<Hits> hits) {
 		Map<String, Integer> countMap = new TreeMap<String, Integer>();
 		for (int i = 0; i < hits.size(); i++) {
@@ -27,13 +37,14 @@ public class Analise {
 				countMap.put(key, 1);
 			}
 		}
-		for (Entry<String, Integer> val : countMap.entrySet()) {
-			System.out.println(
-					val.getKey() + " shows up " + val.getValue() + " times");
-		}
 		return countMap;
 	}
 
+	/**
+	 * 
+	 * @param hits
+	 * @return
+	 */
 	public Map<String, Integer> getRefererCounts(ArrayList<Hits> hits) {
 		Map<String, Integer> countMap = new TreeMap<String, Integer>();
 		for (int i = 0; i < hits.size(); i++) {
@@ -46,14 +57,14 @@ public class Analise {
 				countMap.put(key, 1);
 			}
 		}
-		for (Entry<String, Integer> val : countMap.entrySet()) {
-			System.out.println(
-					val.getKey() + " shows up " + val.getValue() + " times");
-		}
-
 		return countMap;
 	}
 
+	/**
+	 * 
+	 * @param hits
+	 * @return
+	 */
 	public Map<String, Integer> getProtocalCounts(ArrayList<Hits> hits) {
 		Map<String, Integer> countMap = new TreeMap<String, Integer>();
 		for (int i = 0; i < hits.size(); i++) {
@@ -66,14 +77,14 @@ public class Analise {
 				countMap.put(key, 1);
 			}
 		}
-		for (Entry<String, Integer> val : countMap.entrySet()) {
-			System.out.println(
-					val.getKey() + " shows up " + val.getValue() + " times");
-		}
 
 		return countMap;
 	}
-
+	/**
+	 * 
+	 * @param hits
+	 * @return
+	 */
 	public Map<String, Integer> getTimeCounts(ArrayList<Hits> hits) {
 		Map<String, Integer> countMap = new TreeMap<String, Integer>();
 		for (int i = 0; i < hits.size(); i++) {
@@ -88,19 +99,14 @@ public class Analise {
 				countMap.put(key, 1);
 			}
 		}
-		for (Entry<String, Integer> val : countMap.entrySet()) {
-			if (val.getValue() < 20) {
-				System.out.println(val.getKey() + " shows up " + val.getValue()
-						+ " times");
-			} else {
-				System.err.println(val.getKey() + " shows up " + val.getValue()
-						+ " times");
-
-			}
-		}
 		return countMap;
 	}
 
+	/**
+	 * 
+	 * @param hits
+	 * @return
+	 */
 	public Map<String, Integer> getPageCounts(ArrayList<Hits> hits) {
 		Map<String, Integer> countMap = new TreeMap<String, Integer>();
 		for (int i = 0; i < hits.size(); i++) {
@@ -113,19 +119,16 @@ public class Analise {
 				countMap.put(key, 1);
 			}
 		}
-		for (Entry<String, Integer> val : countMap.entrySet()) {
-			if (val.getValue() < 20) {
-				System.out.println(val.getKey() + " shows up " + val.getValue()
-						+ " times");
-			} else {
-				System.err.println(val.getKey() + " shows up " + val.getValue()
-						+ " times");
-
-			}
-		}
+		
+		
 		return countMap;
 	}
-
+	
+	/**
+	 * 
+	 * @param hits
+	 * @return
+	 */
 	public int getTotalData(ArrayList<Hits> hits) {
 		int total = 0;
 		for (Hits h : hits) {
@@ -133,7 +136,12 @@ public class Analise {
 		}
 		return total;
 	}
-
+	/**
+	 * 
+	 * @param hits
+	 * @param ip
+	 * @return
+	 */
 	public int getTotalDataForIP(ArrayList<Hits> hits, String ip) {
 		int total = 0;
 		for (Hits h : hits) {
@@ -143,11 +151,20 @@ public class Analise {
 		}
 		return total;
 	}
-
+	/**
+	 * 
+	 * @param hits
+	 * @return
+	 */
 	public int getTotalHits(ArrayList<Hits> hits) {
 		return hits.size();
 	}
-
+	/**
+	 * 
+	 * @param ip
+	 * @param dataStore
+	 * @return
+	 */
 	public double risk(String ip, DataStore dataStore) {
 		double risk = 0;
 		IPFunctions functions = new IPFunctions();
@@ -164,8 +181,8 @@ public class Analise {
 		case "GB":
 			coumtryRisk = 2.5;
 			break;
-
 		default:
+			coumtryRisk = 40;
 			break;
 		}
 		int orrcancesOfip = dataStore.getOrrcancesOfip().get(ip);
@@ -175,21 +192,25 @@ public class Analise {
 		double requestRisk = 0;
 		for (Hits h : dataStore.getHits()) {
 			if (h.getiPaddr().equals(ip)) {
-				int response = h.getResponse();
-				if (response == 400) {
+				switch (h.getResponse()) {
+				case 400:
 					responseRisk = +0.5;
-				} else if (response == 401) {
+					break;
+				case 401:
 					responseRisk = +5;
-				} else if (response == 403) {
-					responseRisk = +4;
-				} else if (response == 404) {
+					break;
+				case 403:
 					responseRisk = +2;
-				} else if (response == 500) {
+					break;
+				case 429:
+					responseRisk = +2;
+					break;
+				case 500:
 					responseRisk = +0.2;
-				} else if (response == 429) {
-					responseRisk = +2;
-				} else if (response == 200) {
+					break;
+				case 2000:
 					responseRisk = -2;
+					break;
 				}
 				if (containIgnoreCase(h.getRequest(), "wp-admin")) {
 					requestRisk = +3;
@@ -197,18 +218,25 @@ public class Analise {
 				if (containIgnoreCase(h.getRequest(), "login")) {
 					requestRisk = +2;
 				}
+				if (h.getSize()==0) {
+					responseRisk=+6;
+				}
 			}
 
 		}
-		assert (rawRiskMod+dbRiskMod == 1);
-		System.out.println(coumtryRisk);
-		System.out.println(requestRisk);
-		System.out.println(requestRisk);
-		risk =  (orrcancesOfipLog * (Math.log(totalData / orrcancesOfip))
-				+ avTime + (responseRisk * requestRisk)) *rawRiskMod;
+		risk = (orrcancesOfipLog * (Math.log(totalData / orrcancesOfip))
+				+ avTime + (responseRisk * requestRisk)+coumtryRisk) * rawRiskMod;
 		System.err.println(risk);
+		if (risk>40) {
+			System.err.println("Auto report");
+			Database database = new Database();
+			database.updateRiskIP(ip, dataStore, risk);
+			dataStore.addReportedIP(ip);
+		}
 		if (risk > 100) {
 			return 100;
+		} else if (risk < 1) {
+			return 1;
 		} else {
 			return risk;
 		}
@@ -229,14 +257,16 @@ public class Analise {
 	}
 
 	/**
-	 * @param dbRiskMod the dbRiskMod to set
+	 * @param dbRiskMod
+	 *            the dbRiskMod to set
 	 */
 	public void setDbRiskMod(Double dbRiskMod) {
 		this.dbRiskMod = dbRiskMod;
 	}
 
 	/**
-	 * @param rawRiskMod the rawRiskMod to set
+	 * @param rawRiskMod
+	 *            the rawRiskMod to set
 	 */
 	public void setRawRiskMod(Double rawRiskMod) {
 		this.rawRiskMod = rawRiskMod;

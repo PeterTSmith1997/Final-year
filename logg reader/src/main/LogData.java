@@ -1,4 +1,5 @@
 package main;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -26,13 +27,13 @@ import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
-import java.awt.Toolkit;
 
+/**
+ * @author peter
+ * @version 18 Jul 2019
+ */
 public class LogData extends JFrame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 	private JFrame frmLogFileReader;
 	private JScrollPane botsScrollPane;
 	private JTable tbTopIps;
@@ -57,6 +58,7 @@ public class LogData extends JFrame {
 	private JButton btnReadFile;
 	private Reader reader;
 	private DataStore dataStore;
+
 	private JButton btnViewKnownIps;
 
 	public LogData() {
@@ -76,11 +78,25 @@ public class LogData extends JFrame {
 		updaateGUI();
 	}
 
+	/**
+	 * @return the timesHitIp
+	 */
+	public int getTimesHitIp() {
+		return timesHitIp;
+	}
+
+	/**
+	 * @return the timesHitPages
+	 */
+	public int getTimesHitPages() {
+		return timesHitPages;
+	}
+
 	public void makeui() {
 		frmLogFileReader = new JFrame();
 		frmLogFileReader.setTitle("Log file reader");
 
-		frmLogFileReader.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frmLogFileReader.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frmLogFileReader.setBounds(100, 100, 1169, 686);
 		frmLogFileReader.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -255,6 +271,7 @@ public class LogData extends JFrame {
 
 		btnReadFile = new JButton("Read file");
 		btnReadFile.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser jfc = new JFileChooser(FileSystemView
 						.getFileSystemView().getDefaultDirectory());
@@ -279,6 +296,7 @@ public class LogData extends JFrame {
 
 		btnViewKnownIps = new JButton("View known IPs");
 		btnViewKnownIps.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// known UI here
 			}
@@ -291,11 +309,32 @@ public class LogData extends JFrame {
 
 	}
 
+	/**
+	 * @param timesHitIp
+	 *            the timesHitIp to set
+	 */
+	public void setTimesHitIp(int timesHitIp) {
+		this.timesHitIp = timesHitIp;
+	}
+
+	/**
+	 * @param timesHitPages
+	 *            the timesHitPages to set
+	 */
+	public void setTimesHitPages(int timesHitPages) {
+		this.timesHitPages = timesHitPages;
+	}
+
 	private void updaateGUI() {
-		String ipHeader[] = new String[] { "ip", "Number", "Risk"};
+		String ipHeader[] = new String[] { "ip", "Number" };
 		topIPsMd = new DefaultTableModel(null, ipHeader) {
+			/**
+			 *
+			 */
+			private static final long serialVersionUID = 4585202425202280069L;
+
 			@Override
-			public boolean isCellEditable(int row, int columm){
+			public boolean isCellEditable(int row, int columm) {
 				return false;
 			}
 		};
@@ -308,14 +347,13 @@ public class LogData extends JFrame {
 		String timeHeadder[] = new String[] { "Time", "num" };
 		refererlMd = new DefaultTableModel(null, timeHeadder);
 		refererTbl.setModel(refererlMd);
-		
-		
+
 		for (Entry<String, Integer> val : dataStore.getOrrcancesOfip()
 				.entrySet()) {
 			Integer value = val.getValue();
 			String vs = value.toString();
 			if (val.getValue() >= timesHitIp) {
-				topIPsMd.addRow(new String[] { val.getKey(), vs});
+				topIPsMd.addRow(new String[] { val.getKey(), vs });
 			}
 		}
 		for (Entry<String, Integer> val : dataStore.getPages().entrySet()) {
@@ -338,48 +376,12 @@ public class LogData extends JFrame {
 		}
 
 	}
-
-	/**
-	 * @return the timesHitIp
-	 */
-	public int getTimesHitIp() {
-		return timesHitIp;
-	}
-
-	/**
-	 * @return the timesHitPages
-	 */
-	public int getTimesHitPages() {
-		return timesHitPages;
-	}
-
-	/**
-	 * @param timesHitIp
-	 *            the timesHitIp to set
-	 */
-	public void setTimesHitIp(int timesHitIp) {
-		this.timesHitIp = timesHitIp;
-	}
-
-	/**
-	 * @param timesHitPages
-	 *            the timesHitPages to set
-	 */
-	public void setTimesHitPages(int timesHitPages) {
-		this.timesHitPages = timesHitPages;
-	}
-
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-
+			
 			@Override
 			public void run() {
-				try {
-					LogData frame = new LogData();
-					// frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				LogData frame = new LogData();
 			}
 		});
 	}

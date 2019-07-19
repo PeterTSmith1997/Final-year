@@ -10,6 +10,10 @@ import com.maxmind.geoip2.model.CityResponse;
 import com.maxmind.geoip2.model.CountryResponse;
 import com.maxmind.geoip2.record.Country;
 
+/**
+ * @author peter
+ * @version 18 Jul 2019
+ */
 public class IPFunctions {
 	
 	File database = new File("database\\GeoLite2-City.mmdb");

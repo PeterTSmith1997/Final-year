@@ -26,16 +26,24 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.JSplitPane;
+import javax.swing.Box;
+import java.awt.Rectangle;
+import java.awt.FlowLayout;
+import net.miginfocom.swing.MigLayout;
 
+/**
+ * @author peter
+ * @version 18 Jul 2019
+ */
 public class ipDetails extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private Analise analise = new Analise();
-	private JButton btnViewDbInfo;
 	private JPanel buttonPanel;
-	private Database database = new Database();
+	private Database database;
 	private DataStore dataStore;
 	private JPanel highLevelPanel;
 	private String ip;
@@ -61,6 +69,8 @@ public class ipDetails extends JFrame {
 	private JLabel title;
 	private int totalData;
 	private JTextArea txtrAllHits;
+	private JLabel lblLast30Days;
+	private JTextField textFieldLast30Days;
 
 	/**
 	 * @param dataStore
@@ -69,7 +79,7 @@ public class ipDetails extends JFrame {
 
 		this.dataStore = dataStore;
 		this.ip = ip;
-
+		//database = new Database();
 		makeUi();
 	}
 
@@ -90,9 +100,9 @@ public class ipDetails extends JFrame {
 	public void makeUi() {
 		setAlwaysOnTop(true);
 		setBounds(100, 100, 1169, 686);
-		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setTitle("Ip details for " + ip);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		// Get data
 		setTimesVisted(dataStore.getOrrcancesOfip().get(ip));
 		setTotalData(analise.getTotalDataForIP(dataStore.getHits(), ip));
@@ -145,13 +155,13 @@ public class ipDetails extends JFrame {
 		panel.setLayout(new BorderLayout(0, 0));
 
 		buttonPanel = new JPanel();
+		buttonPanel.setMaximumSize(new Dimension(50, 32767));
 		panel.add(buttonPanel, BorderLayout.NORTH);
-		buttonPanel.setLayout(new BorderLayout(0, 0));
-
-		btnViewDbInfo = new JButton("View db info on " + ip);
-		buttonPanel.add(btnViewDbInfo, BorderLayout.EAST);
 
 		JButton btnReportIp = new JButton("Report IP");
+		btnReportIp.setMinimumSize(new Dimension(79, 25));
+		btnReportIp.setMaximumSize(new Dimension(79, 25));
+		btnReportIp.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnReportIp.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -159,7 +169,8 @@ public class ipDetails extends JFrame {
 						"Report iP" + ip, "Comfrim", JOptionPane.YES_NO_OPTION);
 				if (result == JOptionPane.YES_OPTION) {
 					Database database = new Database();
-					database.updateRiskIP(ip, dataStore);
+					
+					database.updateRiskIP(ip, dataStore, riskRaw);
 					dataStore.addReportedIP(ip);
 					btnReportIp.setEnabled(false);
 				}
@@ -171,50 +182,61 @@ public class ipDetails extends JFrame {
 		} else {
 			btnReportIp.setEnabled(true);
 		}
-		buttonPanel.add(btnReportIp, BorderLayout.WEST);
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		buttonPanel.add(btnReportIp);
 
 		highLevelPanel = new JPanel();
 		panel.add(highLevelPanel, BorderLayout.CENTER);
-		highLevelPanel.setLayout(new GridLayout(0, 2, 0, 0));
+		highLevelPanel.setLayout(new MigLayout("", "[246.00][193.00px][291.00px]", "[70.00px][70.00px][70.00px][70.00px][70.00px]"));
 
 		JLabel lblTimesVisted = new JLabel("Times visted");
-		highLevelPanel.add(lblTimesVisted);
+		highLevelPanel.add(lblTimesVisted, "cell 1 0,alignx center,growy");
 
 		textFieldTimesVisted = new JTextField();
 		lblTimesVisted.setLabelFor(textFieldTimesVisted);
 		textFieldTimesVisted.setColumns(10);
 		textFieldTimesVisted.setText(Integer.toString(timesVisted));
 		textFieldTimesVisted.setEditable(false);
-		highLevelPanel.add(textFieldTimesVisted);
+		highLevelPanel.add(textFieldTimesVisted, "cell 2 0,alignx center,growy");
 
 		JLabel lblTotalData = new JLabel("Total data sent");
-		highLevelPanel.add(lblTotalData);
+		highLevelPanel.add(lblTotalData, "cell 1 1,alignx center,growy");
 
 		textFieldTotalData = new JTextField();
 		lblTotalData.setLabelFor(textFieldTotalData);
 		textFieldTotalData.setColumns(10);
 		textFieldTotalData.setText(Integer.toString(totalData));
 		textFieldTotalData.setEditable(false);
-		highLevelPanel.add(textFieldTotalData);
+		highLevelPanel.add(textFieldTotalData, "cell 2 1,alignx center,growy");
 		
 		lbCounrtyCode = new JLabel("Counrty Code");
-		highLevelPanel.add(lbCounrtyCode);
+		highLevelPanel.add(lbCounrtyCode, "cell 1 2,alignx center,growy");
 		
 		textFieldCounrtyCode = new JTextField();
 		textFieldCounrtyCode.setEditable(false);
-		highLevelPanel.add(textFieldCounrtyCode);
+		highLevelPanel.add(textFieldCounrtyCode, "cell 2 2,alignx center,growy");
 		textFieldCounrtyCode.setColumns(10);
 		ipFunctions = new IPFunctions();
 		textFieldCounrtyCode.setText(ipFunctions.getLocation(ip));
 		
 		lblTimesReported = new JLabel("Times reported");
 		lblTimesReported.setLabelFor(textFieldTimes);
-		highLevelPanel.add(lblTimesReported);
+		highLevelPanel.add(lblTimesReported, "cell 1 3,alignx center,growy");
 		
 		textFieldTimes = new JTextField();
-		highLevelPanel.add(textFieldTimes);
+		highLevelPanel.add(textFieldTimes, "cell 2 3,alignx center,growy");
 		textFieldTimes.setColumns(10);
 		textFieldTimes.setText(database.getOcourances(ip)+"");
+		
+		lblLast30Days = new JLabel("Reports last 30 days");
+		highLevelPanel.add(lblLast30Days, "cell 1 4,alignx center,growy");
+		
+		textFieldLast30Days = new JTextField();
+		textFieldLast30Days.setEditable(false);
+		textFieldLast30Days.setText(Integer.toString(database.getOcourancesLast30days(ip)));
+		highLevelPanel.add(textFieldLast30Days, "cell 2 4,alignx center,growy");
+		textFieldLast30Days.setColumns(10);
+		
 
 		rawDataPanel = new JPanel();
 		tabbedPane.addTab("Raw Data", null, rawDataPanel, "View raw data here");

@@ -4,6 +4,10 @@ import java.io.FileNotFoundException;
 
 import java.util.Scanner;
 
+/**
+ * @author peter
+ * @version 18 Jul 2019
+ */
 public class Reader {
 	private Scanner scanner;
 	private File logg;
@@ -13,6 +17,9 @@ public class Reader {
 		this.dataStore = dataStore;
 	}
 
+	/**
+	 * 
+	 */
 	public void readFile() {
 		try {
 			scanner = new Scanner(logg);
