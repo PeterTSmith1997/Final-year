@@ -77,7 +77,7 @@ public class ipDetails extends JFrame {
 
 		this.dataStore = dataStore;
 		this.ip = ip;
-//		database = new Database();
+		database = new Database();
 		makeUi();
 	}
 

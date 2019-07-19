@@ -169,8 +169,6 @@ public class Analise {
 		double risk = 0;
 		IPFunctions functions = new IPFunctions();
 		String countryCode = functions.getLocation(ip);
-		double avTime = dataStore.getOrrcancesOfip().get(ip)
-				/ DataStore.monthMins;
 		double orrcancesOfipLog = Math
 				.log(dataStore.getOrrcancesOfip().get(ip));
 		if (orrcancesOfipLog == 0.00) {
@@ -181,13 +179,18 @@ public class Analise {
 		case "GB":
 			coumtryRisk = 2.5;
 			break;
+		case "CN":
+			coumtryRisk =5;
+			break;
 		default:
-			coumtryRisk = 40;
+			coumtryRisk = 4;
 			break;
 		}
 		int orrcancesOfip = dataStore.getOrrcancesOfip().get(ip);
 		int totalData = getTotalDataForIP(dataStore.getHits(), ip);
 		// look at resposes/requests
+		double avTime = dataStore.getOrrcancesOfip().get(ip)
+				/ DataStore.monthMins;
 		double responseRisk = 0;
 		double requestRisk = 0;
 		for (Hits h : dataStore.getHits()) {
@@ -208,7 +211,7 @@ public class Analise {
 				case 500:
 					responseRisk = +0.2;
 					break;
-				case 2000:
+				case 200:
 					responseRisk = -2;
 					break;
 				}
@@ -218,21 +221,16 @@ public class Analise {
 				if (containIgnoreCase(h.getRequest(), "login")) {
 					requestRisk = +2;
 				}
-				if (h.getSize()==0) {
-					responseRisk=+6;
+				if (h.getSize() == 0) {
+					responseRisk = +6;
 				}
 			}
 
 		}
 		risk = (orrcancesOfipLog * (Math.log(totalData / orrcancesOfip))
 				+ avTime + (responseRisk * requestRisk)+coumtryRisk) * rawRiskMod;
-		System.err.println(risk);
-		if (risk>40) {
-			System.err.println("Auto report");
-			Database database = new Database();
-			database.updateRiskIP(ip, dataStore, risk);
-			dataStore.addReportedIP(ip);
-		}
+		
+
 		if (risk > 100) {
 			return 100;
 		} else if (risk < 1) {
