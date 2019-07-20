@@ -26,6 +26,7 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
 import net.miginfocom.swing.MigLayout;
+import java.awt.FlowLayout;
 
 /**
  * @author peter
@@ -73,9 +74,9 @@ public class LogData extends JFrame {
 	private Reader reader;
 
 	private DataStore dataStore;
-
-	private JButton btnViewKnownIps;
 	private Font deflautFont;
+	private JPanel panel;
+	private JButton btnAdmin;
 
 	public LogData() {
 		dataStore = new DataStore();
@@ -117,8 +118,7 @@ public class LogData extends JFrame {
 		frmLogFileReader.setBounds(100, 100, 1169, 686);
 		frmLogFileReader.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout(0, 0));
-		frmLogFileReader.getContentPane().setLayout(new MigLayout("",
-				"[654px][654px][653px]", "[17px][715px][85px][106px]"));
+		frmLogFileReader.getContentPane().setLayout(new MigLayout("", "[654px][654px][653px,grow]", "[17px][715px][85px][106px,grow]"));
         deflautFont = new Font("Tahoma", Font.BOLD, 14);
 		JLabel lbIPs = new JLabel("IPs on site");
 		lbIPs.setHorizontalAlignment(SwingConstants.CENTER);
@@ -232,43 +232,48 @@ public class LogData extends JFrame {
 		});
 		panel_1.add(pageFilter);
 		pageFilter.setColumns(10);
+		
+				panel_2 = new JPanel();
+				frmLogFileReader.getContentPane().add(panel_2, "cell 1 3,grow");
+				
+						btnReadFile = new JButton("Read file");
+						btnReadFile.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								JFileChooser jfc = new JFileChooser(FileSystemView
+										.getFileSystemView().getDefaultDirectory());
+								jfc.setDialogTitle("Select a log file");
+								jfc.setAcceptAllFileFilterUsed(false);
+								FileNameExtensionFilter filter = new FileNameExtensionFilter(
+										"Text files", "txt");
+								jfc.addChoosableFileFilter(filter);
+								int returnValue = jfc.showSaveDialog(null);
 
-		panel_2 = new JPanel();
-		frmLogFileReader.getContentPane().add(panel_2, "cell 0 3,grow");
+								if (returnValue == JFileChooser.APPROVE_OPTION) {
+									System.err.println(jfc.getSelectedFile().getPath());
+									reader.setFile(jfc.getSelectedFile().getPath());
+									reader.readFile();
 
-		btnReadFile = new JButton("Read file");
-		btnReadFile.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser jfc = new JFileChooser(FileSystemView
-						.getFileSystemView().getDefaultDirectory());
-				jfc.setDialogTitle("Select a log file");
-				jfc.setAcceptAllFileFilterUsed(false);
-				FileNameExtensionFilter filter = new FileNameExtensionFilter(
-						"Text files", "txt");
-				jfc.addChoosableFileFilter(filter);
-				int returnValue = jfc.showSaveDialog(null);
+								}
+								updaateGUI();
 
-				if (returnValue == JFileChooser.APPROVE_OPTION) {
-					System.err.println(jfc.getSelectedFile().getPath());
-					reader.setFile(jfc.getSelectedFile().getPath());
-					reader.readFile();
-
-				}
-				updaateGUI();
-
-			}
-		});
-		panel_2.add(btnReadFile);
-
-		btnViewKnownIps = new JButton("View known IPs");
-		btnViewKnownIps.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// known UI here
-			}
-		});
-		panel_2.add(btnViewKnownIps);
+							}
+						});
+						panel_2.add(btnReadFile);
+						
+						panel = new JPanel();
+						frmLogFileReader.getContentPane().add(panel, "cell 2 3,grow");
+						panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+						
+						btnAdmin = new JButton("Admin login");
+						btnAdmin.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent arg0) {
+								LoginUI loginUI = new LoginUI(dataStore);
+								loginUI.setVisible(true);
+								frmLogFileReader.dispose();
+							}
+						});
+						panel.add(btnAdmin);
 		JScrollPane scrollPane2 = new JScrollPane();
 		getContentPane().add(scrollPane2, BorderLayout.WEST);
 
