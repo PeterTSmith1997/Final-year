@@ -1,4 +1,4 @@
-package main;
+package dataModel;
 
 import java.util.ArrayList;
 import java.util.Map;

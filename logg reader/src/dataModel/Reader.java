@@ -1,4 +1,4 @@
-package main;
+package dataModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 

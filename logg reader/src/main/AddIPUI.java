@@ -15,6 +15,10 @@ import javax.swing.JButton;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.SwingConstants;
+
+import dataModel.Database;
+import dataModel.IPFunctions;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 

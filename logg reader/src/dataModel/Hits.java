@@ -1,4 +1,4 @@
-package main;
+package dataModel;
 public class Hits {
 	private String iPaddr;
 	private String request;

@@ -1,27 +1,36 @@
-package main;
+package admin;
 
 import javax.swing.JFrame;
-import java.awt.FlowLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.SwingConstants;
+
+import dataModel.DataStore;
+import dataModel.Database;
+import main.LogData;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
+import java.awt.Dialog.ModalExclusionType;
+import java.awt.Frame;
 
 /**
  * @author peter
  * @version 20 Jul 2019
  */
 public class LoginUI extends JFrame{
-	private JTextField textField;
+	private JTextField userField;
 	private JPasswordField passwordField;
 	private DataStore dataStore;
+	private Database database = new Database(); 
 	public LoginUI(DataStore dataStore) {
+		setName("frame");
 		this.dataStore = dataStore;
 		setTitle("Login");
 		setLocationRelativeTo(null);
@@ -32,9 +41,9 @@ public class LoginUI extends JFrame{
 		lbUser.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lbUser, "cell 1 0,alignx center,aligny center");
 		
-		textField = new JTextField();
-		getContentPane().add(textField, "cell 2 0,alignx left,aligny top");
-		textField.setColumns(10);
+		userField = new JTextField();
+		getContentPane().add(userField, "cell 2 0,alignx left,aligny top");
+		userField.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password");
 		getContentPane().add(lblPassword, "cell 1 1,alignx center,aligny center");
@@ -44,6 +53,17 @@ public class LoginUI extends JFrame{
 		getContentPane().add(passwordField, "cell 2 1,alignx left,aligny top");
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String user = userField.getText().trim();
+				String password = passwordField.getPassword().toString().trim();
+				if (database.validateLogin(user, password)) {
+					AdminUI adminUI = new AdminUI();
+					adminUI.setVisible(true);
+					dispose();
+				}
+			}
+		});
 		getContentPane().add(btnLogin, "cell 1 2,alignx center");
 		
 		JButton btnCancel = new JButton("Cancel");

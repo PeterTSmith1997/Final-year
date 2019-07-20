@@ -27,6 +27,11 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import dataModel.Analise;
+import dataModel.DataStore;
+import dataModel.Database;
+import dataModel.Hits;
+import dataModel.IPFunctions;
 import net.miginfocom.swing.MigLayout;
 
 /**

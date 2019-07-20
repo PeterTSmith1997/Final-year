@@ -1,4 +1,4 @@
-package main;
+package dataModel;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -252,5 +252,31 @@ public class Database {
 			e.printStackTrace();
 		}
 		return risk;
+	}
+	public boolean validateLogin(String user,  String password) {
+		boolean validLogin = false;
+		try {
+			PreparedStatement stmt = conn.prepareStatement("SELECT PasswordHash FROM User WHERE Username = ?");
+			stmt.setString(1, user);
+			ResultSet rs = stmt.executeQuery();
+			boolean moreRecords = rs.next();
+			//If there are no records to show validLogin is set to false
+		    if (!moreRecords) {
+			      System.out.println ("ResultSet contained no records");
+			      return false;
+		    }
+			//If the entered password matches the one stored in the database
+			//validLogin is set to true
+			if ((password.equals(rs.getString("PasswordHash")))) {
+				validLogin=true;
+				System.out.println("Sucess");
+			}
+		}
+		catch(Exception e) {	
+			// TODO: handle exception
+		}
+		//Return validLogin to check if login was successful 
+		System.out.println(validLogin);
+		return validLogin;
 	}
 }
