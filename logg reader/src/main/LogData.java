@@ -154,7 +154,7 @@ public class LogData extends JFrame {
 				JTable target = (JTable) e.getSource();
 				int row = target.getSelectedRow();
 				String ip = (String) tbTopIps.getValueAt(row, 0);
-				ipDetails details = new ipDetails(dataStore, ip);
+				IPDetails details = new IPDetails(dataStore, ip);
 				details.setVisible(true);
 				frmLogFileReader.dispose();
 			}

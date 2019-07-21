@@ -13,12 +13,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * @author peter
- * @version 18 Jul 2019
+ * @version 21 Jul 2019
  */
 public class Database {
 	private String driver = "jdbc:ucanaccess://";
@@ -105,9 +107,9 @@ public class Database {
 	}
 
 	public double getRiskIP(String ip) {
-		return (getRisk30Days(ip)*0.75) + (getRiskAlltime(ip)*0.25) ;
+		return (getRisk30Days(ip) * 0.75) + (getRiskAlltime(ip) * 0.25);
 	}
-	
+
 	public void updateRiskIP(String ip, DataStore dataStore, double risk) {
 
 		Date date = new Date();
@@ -143,7 +145,7 @@ public class Database {
 				return 0;
 			}
 			occurances = Integer.parseInt(rs.getString("count"));
-			System.out.println("count="+occurances);
+			System.out.println("count=" + occurances);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -151,6 +153,7 @@ public class Database {
 		return occurances;
 
 	}
+
 	public int getOcourancesLast30days(String ip) {
 		int occurances = 0;
 		try {
@@ -162,7 +165,8 @@ public class Database {
 			Date date = new Date();
 			cal.setTime(date);
 			cal.add(Calendar.DATE, -30);
-			stmt.setDate(2, convertStringToSQLDate(dateFormat.format(cal.getTime())));
+			stmt.setDate(2,
+					convertStringToSQLDate(dateFormat.format(cal.getTime())));
 			ResultSet rs = stmt.executeQuery();
 			Boolean moreRecords = rs.next();
 			if (!moreRecords) {
@@ -170,7 +174,7 @@ public class Database {
 				return 0;
 			}
 			occurances = Integer.parseInt(rs.getString("count"));
-			System.out.println("count="+occurances);
+			System.out.println("count=" + occurances);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -181,19 +185,21 @@ public class Database {
 		return occurances;
 
 	}
-	
-	public java.sql.Date convertStringToSQLDate(String date) throws ParseException {
+
+	public java.sql.Date convertStringToSQLDate(String date)
+			throws ParseException {
 		Date convertedDate;
 		java.sql.Date sConvertedDate;
-		
+
 		if (date != null) {
 			convertedDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
 			sConvertedDate = new java.sql.Date(convertedDate.getTime());
 		} else {
-			sConvertedDate=null;
+			sConvertedDate = null;
 		}
 		return sConvertedDate;
 	}
+
 	private double getRisk30Days(String ip) {
 		int risk = 0;
 		try {
@@ -206,7 +212,8 @@ public class Database {
 			Date date = new Date();
 			cal.setTime(date);
 			cal.add(Calendar.DATE, -30);
-			stmt.setDate(2, convertStringToSQLDate(dateFormat.format(cal.getTime())));
+			stmt.setDate(2,
+					convertStringToSQLDate(dateFormat.format(cal.getTime())));
 			ResultSet rs = stmt.executeQuery();
 			Boolean moreRecords = rs.next();
 			if (!moreRecords) {
@@ -223,7 +230,37 @@ public class Database {
 		}
 		return risk;
 	}
-	
+
+	public DefaultTableModel getRisk30DaysAdmin() {
+		String ipHeader[] = new String[] { "ip", "Number", "Risk" };
+		DefaultTableModel last30Days = new DefaultTableModel(null, ipHeader);
+		try {
+			PreparedStatement stmt = conn.prepareStatement(
+					"SELECT ip, Count(*) AS num, Avg(risk) AS Risk FROM IPLog Where DateReported>? GROUP BY ip");
+
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			Calendar cal = Calendar.getInstance();
+			Date date = new Date();
+			cal.setTime(date);
+			cal.add(Calendar.DATE, -30);
+			stmt.setDate(1,
+					convertStringToSQLDate(dateFormat.format(cal.getTime())));
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				last30Days.addRow(new String[] { rs.getString("ip"),
+						Integer.toString(rs.getInt("num")),
+						Integer.toString(rs.getInt("Risk")) });
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return last30Days;
+	}
+
 	private double getRiskAlltime(String ip) {
 		int risk = 0;
 		try {
@@ -236,7 +273,8 @@ public class Database {
 			Date date = new Date();
 			cal.setTime(date);
 			cal.add(Calendar.DATE, -30);
-			stmt.setDate(2, convertStringToSQLDate(dateFormat.format(cal.getTime())));
+			stmt.setDate(2,
+					convertStringToSQLDate(dateFormat.format(cal.getTime())));
 			ResultSet rs = stmt.executeQuery();
 			Boolean moreRecords = rs.next();
 			if (!moreRecords) {
@@ -253,30 +291,51 @@ public class Database {
 		}
 		return risk;
 	}
-	public boolean validateLogin(String user,  String password) {
+
+	public boolean validateLogin(String user, String password) {
 		boolean validLogin = false;
 		try {
-			PreparedStatement stmt = conn.prepareStatement("SELECT PasswordHash FROM User WHERE Username = ?");
-			stmt.setString(1, user);
+			PreparedStatement stmt = conn.prepareStatement(
+					"SELECT PasswordHash FROM User WHERE Username = '" + user
+							+ "'");
 			ResultSet rs = stmt.executeQuery();
 			boolean moreRecords = rs.next();
-			//If there are no records to show validLogin is set to false
-		    if (!moreRecords) {
-			      System.out.println ("ResultSet contained no records");
-			      return false;
-		    }
-			//If the entered password matches the one stored in the database
-			//validLogin is set to true
+			// If there are no records to show validLogin is set to false
+			if (!moreRecords) {
+				System.out.println("ResultSet contained no records");
+				return false;
+			}
+			// If the entered password matches the one stored in the database
+			// validLogin is set to true
 			if ((password.equals(rs.getString("PasswordHash")))) {
-				validLogin=true;
+				validLogin = true;
 				System.out.println("Sucess");
 			}
-		}
-		catch(Exception e) {	
+		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		//Return validLogin to check if login was successful 
+		// Return validLogin to check if login was successful
 		System.out.println(validLogin);
 		return validLogin;
+	}
+
+	public DefaultTableModel getTotalReports() {
+		String ipHeader[] = new String[] { "ip", "Number", "Risk" };
+		DefaultTableModel allTime = new DefaultTableModel(null, ipHeader);
+		try {
+			PreparedStatement stmt = conn.prepareStatement(
+					"SELECT ip, Count(*) AS num, Avg(risk) AS Risk FROM IPLog GROUP BY ip;");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				allTime.addRow(new String[] { rs.getString("ip"),
+						Integer.toString(rs.getInt("num")),
+						Integer.toString(rs.getInt("Risk")) });
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return allTime;
+
 	}
 }

@@ -38,7 +38,7 @@ import net.miginfocom.swing.MigLayout;
  * @author peter
  * @version 18 Jul 2019
  */
-public class ipDetails extends JFrame {
+public class IPDetails extends JFrame {
 	/**
 	 * 
 	 */
@@ -78,7 +78,7 @@ public class ipDetails extends JFrame {
 	/**
 	 * @param dataStore
 	 */
-	public ipDetails(DataStore dataStore, String ip) {
+	public IPDetails(DataStore dataStore, String ip) {
 
 		this.dataStore = dataStore;
 		this.ip = ip;
