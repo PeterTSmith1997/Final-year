@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.omg.CORBA.PUBLIC_MEMBER"/>
-<fullyQualifiedTypeName name="javax.swing.table.DefaultTableCellRenderer"/>
-<fullyQualifiedTypeName name="java.awt.Component"/>
 <fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="javax.swing.event.DocumentListener"/>
 <fullyQualifiedTypeName name="javax.swing.JTable"/>
@@ -19,13 +16,11 @@
 <fullyQualifiedTypeName name="Reader"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
 <fullyQualifiedTypeName name="javax.swing.filechooser.FileNameExtensionFilter"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="Hits"/>
 <fullyQualifiedTypeName name="Database"/>
 <fullyQualifiedTypeName name="java.lang.Boolean"/>
-<fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="java.awt.Menu"/>
 <fullyQualifiedTypeName name="javax.swing.JMenu"/>
 <fullyQualifiedTypeName name="javax.swing.JMenuItem"/>
@@ -50,14 +45,19 @@
 <fullyQualifiedTypeName name="java.text.DateFormat"/>
 <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
 <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
-<fullyQualifiedTypeName name="java.sql.Date"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
 <fullyQualifiedTypeName name="java.util.concurrent.CompletableFuture"/>
 <fullyQualifiedTypeName name="main.Database"/>
-<fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="java.awt.EventQueue"/>
 <fullyQualifiedTypeName name="java.lang.Runnable"/>
 <fullyQualifiedTypeName name="main.LogData"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+<fullyQualifiedTypeName name="java.time.LocalDate"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
+<fullyQualifiedTypeName name="dataModel.Analise"/>
 </qualifiedTypeNameHistroy>
