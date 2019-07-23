@@ -1,5 +1,14 @@
 package dataModel;
-public class Hits {
+
+import java.io.Serializable;
+
+/**
+ * @author peter
+ * @version 21 Jul 2019
+ */
+public class Hits implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private String iPaddr;
 	private String request;
 	private String dateTime;

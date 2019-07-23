@@ -49,7 +49,8 @@ public class IPDetails extends JFrame {
 	private DataStore dataStore;
 	private JPanel highLevelPanel;
 	private String ip;
-	private IPFunctions ipFunctions;
+	private String countryCode;
+	private IPFunctions ipFunctions = new IPFunctions();
 	private JLabel lbCounrtyCode;
 	private JLabel lblAllHitsFor;
 	private JLabel lblRiskFactor;
@@ -74,6 +75,7 @@ public class IPDetails extends JFrame {
 	private JLabel lblLast30Days;
 	private JTextField textFieldLast30Days;
 	private JLabel lblAgentOrBot;
+	private JTextField textFieldBots;
 
 	/**
 	 * @param dataStore
@@ -82,8 +84,21 @@ public class IPDetails extends JFrame {
 
 		this.dataStore = dataStore;
 		this.ip = ip;
-		database = new Database();
+        database = new Database();
 		makeUi();
+	}
+	/**
+	 * @return the countryCode
+	 */
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	/**
+	 * @param countryCode the countryCode to set
+	 */
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
 	}
 
 	/**
@@ -109,6 +124,7 @@ public class IPDetails extends JFrame {
 		setTimesVisted(dataStore.getOrrcancesOfip().get(ip));
 		setTotalData(analise.getTotalDataForIP(dataStore.getHits(), ip));
 		ArrayList<Hits> hits = dataStore.getHits();
+		countryCode = ipFunctions.getLocation(ip);
 		panelTop = new JPanel();
 		getContentPane().add(panelTop, BorderLayout.NORTH);
 
@@ -119,7 +135,7 @@ public class IPDetails extends JFrame {
 		panelRiskBar.setMaximumSize(new Dimension(100, 32767));
 		getContentPane().add(panelRiskBar, BorderLayout.SOUTH);
 		panelRiskBar.setLayout(new BorderLayout(0, 0));
-		double riskRaw = analise.risk(ip, dataStore);
+		double riskRaw = analise.risk(ip, dataStore, countryCode);
 
 		double dataBaseRisk = database.getRiskIP(ip);
 		int risk = (int) (riskRaw + (dataBaseRisk * analise.getDbRiskMod()));
@@ -191,7 +207,7 @@ public class IPDetails extends JFrame {
 
 		highLevelPanel = new JPanel();
 		panel.add(highLevelPanel, BorderLayout.CENTER);
-		highLevelPanel.setLayout(new MigLayout("", "[246.00][193.00px][291.00px]", "[70.00px][70.00px][70.00px][70.00px][70.00px][70.00px]"));
+		highLevelPanel.setLayout(new MigLayout("", "[246.00][193.00px][291.00px,grow]", "[70.00px][70.00px][70.00px][70.00px][70.00px][70.00px]"));
 
 		JLabel lblTimesVisted = new JLabel("Times visted");
 		highLevelPanel.add(lblTimesVisted, "cell 1 0,alignx center,growy");
@@ -220,14 +236,14 @@ public class IPDetails extends JFrame {
 		textFieldCounrtyCode.setEditable(false);
 		highLevelPanel.add(textFieldCounrtyCode, "cell 2 2,alignx center,growy");
 		textFieldCounrtyCode.setColumns(10);
-		ipFunctions = new IPFunctions();
-		textFieldCounrtyCode.setText(ipFunctions.getLocation(ip));
+		textFieldCounrtyCode.setText(countryCode);
 		
 		lblTimesReported = new JLabel("Times reported");
 		lblTimesReported.setLabelFor(textFieldTimes);
 		highLevelPanel.add(lblTimesReported, "cell 1 3,alignx center,growy");
 		
 		textFieldTimes = new JTextField();
+		textFieldTimes.setEditable(false);
 		highLevelPanel.add(textFieldTimes, "cell 2 3,alignx center,growy");
 		textFieldTimes.setColumns(10);
 		textFieldTimes.setText(Integer.toString(database.getOcourances(ip)));
@@ -243,6 +259,16 @@ public class IPDetails extends JFrame {
 		
 		lblAgentOrBot = new JLabel("Agent or bot");
 		highLevelPanel.add(lblAgentOrBot, "cell 1 5,alignx center");
+		
+		textFieldBots = new JTextField();
+		textFieldBots.setEditable(false);
+		if (database.knownBots(ip).equals("n/a")) {
+			textFieldBots.setText("Not a bot we know of");
+		}else {
+			textFieldBots.setText(database.knownBots(ip));
+		}
+		highLevelPanel.add(textFieldBots, "cell 2 5,alignx center,growy");
+		textFieldBots.setColumns(10);
 		
 
 		rawDataPanel = new JPanel();

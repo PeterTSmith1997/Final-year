@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -46,23 +45,27 @@ public class Database {
 		}
 	}
 
-	public ArrayList<String> knownGoodIPs() {
+	public String knownBots(String ip) {
+		String botName = "n/a";
 		try {
 			PreparedStatement stmt = conn
-					.prepareStatement("SELECT IP address FROM knownip");
+					.prepareStatement("SELECT BotName FROM Bots  Where IP=?");
+			stmt.setString(1, ip);
 			ResultSet rs = stmt.executeQuery();
-
-			ArrayList<String> ips = new ArrayList<String>();
-			while (rs.next()) {
-				ips.add(rs.getString("IP"));
+			Boolean moreRecords = rs.next();
+			if (!moreRecords) {
+				System.err.println("no R");
+				return botName;
+			} else {
+				return rs.getString("BotName");
 			}
-			System.out.println(ips);
-			return ips;
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
 		}
+
+		return botName;
 
 	}
 

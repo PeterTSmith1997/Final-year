@@ -164,10 +164,12 @@ public class Analise {
 	 * @param dataStore
 	 * @return
 	 */
-	public double risk(String ip, DataStore dataStore) {
+	public double risk(String ip, DataStore dataStore, String countryCode) {
 		double risk = 0;
-		IPFunctions functions = new IPFunctions();
-		String countryCode = functions.getLocation(ip);
+		Database database = new Database();
+		if (!database.knownBots(ip).equals("n/a")) {
+			risk = risk - 25;
+		}
 		double orrcancesOfipLog = Math
 				.log(dataStore.getOrrcancesOfip().get(ip));
 		if (orrcancesOfipLog == 0.00) {
@@ -179,7 +181,7 @@ public class Analise {
 			coumtryRisk = 2.5;
 			break;
 		case "CN":
-			coumtryRisk =5;
+			coumtryRisk = 5;
 			break;
 		default:
 			coumtryRisk = 4;
@@ -227,8 +229,8 @@ public class Analise {
 
 		}
 		risk = (orrcancesOfipLog * (Math.log(totalData / orrcancesOfip))
-				+ avTime + (responseRisk * requestRisk)+coumtryRisk) * rawRiskMod;
-		
+				+ avTime + (responseRisk * requestRisk) + coumtryRisk)
+				* rawRiskMod;
 
 		if (risk > 100) {
 			return 100;
