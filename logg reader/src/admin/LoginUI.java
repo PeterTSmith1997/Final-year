@@ -85,8 +85,7 @@ public class LoginUI extends JFrame {
 					// Welcome message
 					JOptionPane.showMessageDialog(null, "Welcome, " + username,
 							"Success", JOptionPane.INFORMATION_MESSAGE);
-					AdminUI adminUI = new AdminUI(dataStore);
-					adminUI.setVisible(true);
+					new AdminUI(dataStore);
 					// Close login window
 					dispose();
 				}

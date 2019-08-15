@@ -79,16 +79,11 @@ public class AddIPUI extends JFrame{
 		btnAddIp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			String ip = textFieldIP.getText();
-			IPFunctions ipFunctions = new IPFunctions();
-			if (ipFunctions.validate(ip)) {
+
 				String insertSql = "INSERT INTO knownip (IP, Type) VALUES('" 
 						+ ip +"' ,'"
 						+ comboType.getSelectedIndex()+"');";
 				database.executeSQL(insertSql);
-			}
-			else {
-				JOptionPane.showMessageDialog(new JFrame(), "Ip not vaild", "error", JOptionPane.ERROR_MESSAGE);
-			}
 			
 			}
 		});

@@ -245,7 +245,7 @@ public class Database {
 			Calendar cal = Calendar.getInstance();
 			Date date = new Date();
 			cal.setTime(date);
-			cal.add(Calendar.DATE, -30);
+			cal.add(Calendar.DATE, -31);
 			stmt.setDate(1,
 					convertStringToSQLDate(dateFormat.format(cal.getTime())));
 			ResultSet rs = stmt.executeQuery();
@@ -275,7 +275,7 @@ public class Database {
 			Calendar cal = Calendar.getInstance();
 			Date date = new Date();
 			cal.setTime(date);
-			cal.add(Calendar.DATE, -30);
+			cal.add(Calendar.DATE, -31);
 			stmt.setDate(2,
 					convertStringToSQLDate(dateFormat.format(cal.getTime())));
 			ResultSet rs = stmt.executeQuery();
@@ -340,5 +340,111 @@ public class Database {
 		}
 		return allTime;
 
+	}
+
+	public double countryRisk(String code) {
+		double risk = 0;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(
+					"SELECT Risk FROM countryRisk WHERE ID=?");
+			stmt.setString(1, code);
+			ResultSet rs = stmt.executeQuery();
+			Boolean moreRecords = rs.next();
+			if (!moreRecords) {
+				System.err.println("no R");
+				return 0;
+			}
+			risk = rs.getInt("Risk");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return risk;
+
+	}
+
+	public ArrayList<String> getCounties() {
+		ArrayList<String> counties = new ArrayList<String>();
+		try {
+			PreparedStatement stmt = conn.prepareStatement(
+					"SELECT ID, Name FROM countryRisk ORDER BY ID");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				counties.add(rs.getString("ID").toUpperCase() + " - "
+						+ rs.getString("Name"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return counties;
+
+	}
+
+	public boolean updateCountryRisk(String code, int risk) {
+		try {
+			PreparedStatement stmt = conn.prepareStatement(
+					"UPDATE countryRisk SET Risk=? WHERE ID=?");
+			stmt.setInt(1, risk);
+			stmt.setString(2, code);
+			int result = stmt.executeUpdate();
+			if (result == 0) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+
+	}
+	
+	public int numberReports30Days() {
+		int reports = 0;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(
+					"SELECT count(ID) AS num FROM IPLog where DateReported>?");
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			Calendar cal = Calendar.getInstance();
+			Date date = new Date();
+			cal.setTime(date);
+			cal.add(Calendar.DATE, -31);
+			stmt.setDate(1,
+					convertStringToSQLDate(dateFormat.format(cal.getTime())));
+			ResultSet rs = stmt.executeQuery();
+			Boolean moreRecords = rs.next();
+			if (!moreRecords) {
+				System.err.println("no R");
+				return 0;
+			}
+			reports = rs.getInt("num");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return reports;
+	}
+	public int numberReportsAllTime() {
+		int reports = 0;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(
+					"SELECT count(ID) AS num FROM IPLog");
+			ResultSet rs = stmt.executeQuery();
+			Boolean moreRecords = rs.next();
+			if (!moreRecords) {
+				System.err.println("no R");
+				return 0;
+			}
+			reports = rs.getInt("num");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return reports;
 	}
 }

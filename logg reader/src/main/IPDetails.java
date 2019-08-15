@@ -311,7 +311,7 @@ public class IPDetails extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				LogData logData = new LogData(dataStore);
+				new LogData(dataStore);
 				dispose();
 			}
 		});

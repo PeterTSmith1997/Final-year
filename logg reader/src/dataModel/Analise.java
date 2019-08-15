@@ -1,31 +1,48 @@
 package dataModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 /**
  * @author peter
  * @version 18 Jul 2019
  */
 public class Analise {
+	private static boolean containIgnoreCase(String str, String sub) {
+		return str.toLowerCase().contains(sub.toLowerCase());
+	}
+
 	private Double dbRiskMod = 0.1;
+
 	private Double rawRiskMod = 0.90;
 
 	/**
-	 * 
+	 *
 	 */
 	public Analise() {
 
 	}
 
 	/**
-	 * sets the map of IP counts 
-	 * @param hits - the ArrayList to be sorted
+	 * @return the dbRiskMod
+	 */
+	public Double getDbRiskMod() {
+		return dbRiskMod;
+	}
+
+	/**
+	 * sets the map of IP counts
+	 * 
+	 * @param hits
+	 *            - the ArrayList to be sorted
 	 * @return The map of sorted IPs with the no. of times in the dataset
 	 */
-	public Map<String, Integer> getIpCounts(ArrayList<Hits> hits) {
-		Map<String, Integer> countMap = new TreeMap<String, Integer>();
+	public HashMap<String, Integer> getIpCounts(ArrayList<Hits> hits) {
+		HashMap<String, Integer> countMap = new HashMap<String, Integer>();
 		for (int i = 0; i < hits.size(); i++) {
 			String key = hits.get(i).getiPaddr();
 			if (countMap.containsKey(key)) {
@@ -40,7 +57,56 @@ public class Analise {
 	}
 
 	/**
-	 * 
+	 *
+	 * @param hits
+	 * @return
+	 */
+	public Map<String, Integer> getPageCounts(ArrayList<Hits> hits) {
+		Map<String, Integer> countMap = new TreeMap<String, Integer>();
+		for (int i = 0; i < hits.size(); i++) {
+			String key = hits.get(i).getRequest();
+			if (countMap.containsKey(key)) {
+				int count = countMap.get(key);
+				count++;
+				countMap.put(key, count);
+			} else {
+				countMap.put(key, 1);
+			}
+		}
+
+		return countMap;
+	}
+
+	/**
+	 *
+	 * @param hits
+	 * @return
+	 */
+	public Map<String, Integer> getProtocalCounts(ArrayList<Hits> hits) {
+		Map<String, Integer> countMap = new TreeMap<String, Integer>();
+		for (int i = 0; i < hits.size(); i++) {
+			String key = hits.get(i).getProtocal();
+			if (countMap.containsKey(key)) {
+				int count = countMap.get(key);
+				count++;
+				countMap.put(key, count);
+			} else {
+				countMap.put(key, 1);
+			}
+		}
+
+		return countMap;
+	}
+
+	/**
+	 * @return the rawRiskMod
+	 */
+	public Double getRawRiskMod() {
+		return rawRiskMod;
+	}
+
+	/**
+	 *
 	 * @param hits
 	 * @return
 	 */
@@ -60,27 +126,7 @@ public class Analise {
 	}
 
 	/**
-	 * 
-	 * @param hits
-	 * @return
-	 */
-	public Map<String, Integer> getProtocalCounts(ArrayList<Hits> hits) {
-		Map<String, Integer> countMap = new TreeMap<String, Integer>();
-		for (int i = 0; i < hits.size(); i++) {
-			String key = hits.get(i).getProtocal();
-			if (countMap.containsKey(key)) {
-				int count = countMap.get(key);
-				count++;
-				countMap.put(key, count);
-			} else {
-				countMap.put(key, 1);
-			}
-		}
-
-		return countMap;
-	}
-	/**
-	 * 
+	 *
 	 * @param hits
 	 * @return
 	 */
@@ -102,29 +148,7 @@ public class Analise {
 	}
 
 	/**
-	 * 
-	 * @param hits
-	 * @return
-	 */
-	public Map<String, Integer> getPageCounts(ArrayList<Hits> hits) {
-		Map<String, Integer> countMap = new TreeMap<String, Integer>();
-		for (int i = 0; i < hits.size(); i++) {
-			String key = hits.get(i).getRequest();
-			if (countMap.containsKey(key)) {
-				int count = countMap.get(key);
-				count++;
-				countMap.put(key, count);
-			} else {
-				countMap.put(key, 1);
-			}
-		}
-		
-		
-		return countMap;
-	}
-	
-	/**
-	 * 
+	 *
 	 * @param hits
 	 * @return
 	 */
@@ -135,8 +159,9 @@ public class Analise {
 		}
 		return total;
 	}
+
 	/**
-	 * 
+	 *
 	 * @param hits
 	 * @param ip
 	 * @return
@@ -150,16 +175,18 @@ public class Analise {
 		}
 		return total;
 	}
+
 	/**
-	 * 
+	 *
 	 * @param hits
 	 * @return
 	 */
 	public int getTotalHits(ArrayList<Hits> hits) {
 		return hits.size();
 	}
+
 	/**
-	 * 
+	 *
 	 * @param ip
 	 * @param dataStore
 	 * @return
@@ -175,23 +202,11 @@ public class Analise {
 		if (orrcancesOfipLog == 0.00) {
 			orrcancesOfipLog = 0.01;
 		}
-		double coumtryRisk = 0.00;
-		switch (countryCode) {
-		case "GB":
-			coumtryRisk = 2.5;
-			break;
-		case "CN":
-			coumtryRisk = 5;
-			break;
-		default:
-			coumtryRisk = 4;
-			break;
-		}
+		double countryRisk = database.countryRisk(countryCode); 
 		int orrcancesOfip = dataStore.getOrrcancesOfip().get(ip);
 		int totalData = getTotalDataForIP(dataStore.getHits(), ip);
 		// look at resposes/requests
-		double avTime = dataStore.getOrrcancesOfip().get(ip)
-				/ DataStore.monthMins;
+		double avTime = orrcancesOfip/ DataStore.monthMins;
 		double responseRisk = 0;
 		double requestRisk = 0;
 		for (Hits h : dataStore.getHits()) {
@@ -213,7 +228,7 @@ public class Analise {
 					responseRisk = +0.2;
 					break;
 				case 200:
-					responseRisk = -2;
+					responseRisk = -1;
 					break;
 				}
 				if (containIgnoreCase(h.getRequest(), "wp-admin")) {
@@ -229,7 +244,7 @@ public class Analise {
 
 		}
 		risk = (orrcancesOfipLog * (Math.log(totalData / orrcancesOfip))
-				+ avTime + (responseRisk * requestRisk) + coumtryRisk)
+				+ avTime + (responseRisk * requestRisk) + countryRisk)
 				* rawRiskMod;
 
 		if (risk > 100) {
@@ -239,20 +254,6 @@ public class Analise {
 		} else {
 			return risk;
 		}
-	}
-
-	/**
-	 * @return the dbRiskMod
-	 */
-	public Double getDbRiskMod() {
-		return dbRiskMod;
-	}
-
-	/**
-	 * @return the rawRiskMod
-	 */
-	public Double getRawRiskMod() {
-		return rawRiskMod;
 	}
 
 	/**
@@ -269,10 +270,6 @@ public class Analise {
 	 */
 	public void setRawRiskMod(Double rawRiskMod) {
 		this.rawRiskMod = rawRiskMod;
-	}
-
-	private static boolean containIgnoreCase(String str, String sub) {
-		return str.toLowerCase().contains(sub.toLowerCase());
 	}
 
 }
