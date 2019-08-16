@@ -1,11 +1,9 @@
 package dataModel;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 /**
  * @author peter
@@ -213,34 +211,35 @@ public class Analise {
 			if (h.getiPaddr().equals(ip)) {
 				switch (h.getResponse()) {
 				case 400:
-					responseRisk = +0.5;
+					responseRisk += 0.5;
 					break;
 				case 401:
-					responseRisk = +5;
+					responseRisk += 5;
 					break;
 				case 403:
-					responseRisk = +2;
+					responseRisk += 2;
 					break;
 				case 429:
-					responseRisk = +2;
+					responseRisk += +2;
 					break;
 				case 500:
-					responseRisk = +0.2;
+					responseRisk += 0.2;
 					break;
 				case 200:
-					responseRisk = -1;
+					responseRisk -= 1;
 					break;
 				}
 				if (containIgnoreCase(h.getRequest(), "wp-admin")) {
-					requestRisk = +3;
+					requestRisk += 3;
 				}
 				if (containIgnoreCase(h.getRequest(), "login")) {
-					requestRisk = +2;
+					requestRisk += 2;
 				}
 				if (h.getSize() == 0) {
 					responseRisk = +6;
 				}
 			}
+			System.err.println(responseRisk);
 
 		}
 		risk = (orrcancesOfipLog * (Math.log(totalData / orrcancesOfip))

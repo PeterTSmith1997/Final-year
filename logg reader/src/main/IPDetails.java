@@ -149,12 +149,12 @@ public class IPDetails extends JFrame {
 		lblRiskFactor.setLabelFor(riskBar);
 		riskBar.setValue(risk);
 		riskBar.setOpaque(false);
-		int value = riskBar.getValue();
-		if (value < 25) {
+		
+		if (risk < 25) {
 			riskBar.setForeground(Color.GREEN);
-		} else if (value < 50) {
+		} else if (risk < 50) {
 			riskBar.setForeground(Color.YELLOW);
-		} else if (value < 75) {
+		} else if (risk < 75) {
 			riskBar.setForeground(Color.ORANGE);
 		} else {
 			riskBar.setForeground(Color.RED);
@@ -295,7 +295,7 @@ public class IPDetails extends JFrame {
 						if (hits.get(i).getiPaddr().equals(ip)) {
 							txtrAllHits.append(hits.get(i) + "\n");
 						}
-
+						pane2Loaded = true;
 						txtrAllHits.setSelectionStart(0);
 						txtrAllHits.setSelectionEnd(0);
 					}

@@ -150,8 +150,8 @@
 		<item value="68" key="DIALOG_Y_ORIGIN"/>
 	</section>
 	<section name="RefactoringWizard.preview">
-		<item value="580" key="width"/>
-		<item value="380" key="height"/>
+		<item value="570" key="width"/>
+		<item value="370" key="height"/>
 	</section>
 	<section name="DialogBounds_AddDelegateMethodsDialog">
 		<item value="549" key="DIALOG_WIDTH"/>
@@ -163,7 +163,7 @@
 	<section name="SourceActionDialog.methods">
 		<item value="true" key="IgnoreDefault"/>
 		<item value="false" key="SynchronizedModifier"/>
-		<item value="false" key="Blocks"/>
+		<item value="true" key="Blocks"/>
 		<item value="true" key="Comments"/>
 		<item value="1" key="VisibilityModifier"/>
 		<item value="false" key="LimitElements"/>

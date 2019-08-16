@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-<typeInfo handle="=logg reader/src&lt;dataModel{Analise.java[Analise" modifiers="1" timestamp="1565476313223"/>
-<typeInfo handle="=logg reader/src&lt;admin{AdminUI.java[AdminUI" modifiers="1" timestamp="1565477062984"/>
-<typeInfo handle="=logg reader/src&lt;dataModel{Database.java[Database" modifiers="1" timestamp="1565476456356"/>
-<typeInfo handle="=logg reader/src&lt;dataModel{DataStore.java[DataStore" modifiers="1" timestamp="1563638895495"/>
+<typeInfo handle="=logg reader/src&lt;dataModel{Analise.java[Analise" modifiers="1" timestamp="1565894655210"/>
+<typeInfo handle="=logg reader/src&lt;admin{AdminUI.java[AdminUI" modifiers="1" timestamp="1565649336248"/>
+<typeInfo handle="=logg reader/src&lt;dataModel{Database.java[Database" modifiers="1" timestamp="1565649336100"/>
+<typeInfo handle="=logg reader/src&lt;dataModel{DataStore.java[DataStore" modifiers="1" timestamp="1565649860149"/>
 <typeInfo handle="=logg reader/src&lt;dataModel{Hits.java[Hits" modifiers="1" timestamp="1563746652216"/>
-<typeInfo handle="=logg reader/src&lt;main{IPDetails.java[IPDetails" modifiers="1" timestamp="1563899123026"/>
+<typeInfo handle="=logg reader/src&lt;main{IPDetails.java[IPDetails" modifiers="1" timestamp="1565894339098"/>
 <typeInfo handle="=logg reader/src&lt;dataModel{IPFunctions.java[IPFunctions" modifiers="1" timestamp="1563640257151"/>
 </typeInfoHistroy>
