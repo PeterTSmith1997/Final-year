@@ -13,6 +13,14 @@ public class Reader {
 	private File logg;
 	private DataStore dataStore;
 
+	public Reader(DataStore dataStore, String pathToFile) {
+		logg = new File(pathToFile);
+		this.dataStore = dataStore;
+	}
+
+	/**
+	 * @param dataStore
+	 */
 	public Reader(DataStore dataStore) {
 		this.dataStore = dataStore;
 	}
@@ -41,14 +49,7 @@ public class Reader {
 					userAgent);
 			dataStore.addHit(h);
 		}
-		Analise analise = new Analise();
-		dataStore.setOrrcancesOfip(analise.getIpCounts(dataStore.getHits()));
-		dataStore.setReferers(analise.getRefererCounts(dataStore.getHits()));
-		dataStore.setProtcals(analise.getProtocalCounts(dataStore.getHits()));
-		dataStore.setPages(analise.getPageCounts(dataStore.getHits()));
-		analise.getTimeCounts(dataStore.getHits());
-		
-	}
+		}
 
 	public void setFile(String pathToFile) {
 		logg = new File(pathToFile);

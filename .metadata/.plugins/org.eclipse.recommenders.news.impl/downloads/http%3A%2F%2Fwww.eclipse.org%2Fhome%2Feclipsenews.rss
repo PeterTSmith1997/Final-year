@@ -9,6 +9,38 @@
       <title>eclipse.org</title>
       <link>http://www.eclipse.org</link>
     </image>
+     <item>
+      <title><![CDATA[Welcome to the Future of Cloud Native Java]]></title>
+      <link><![CDATA[https://blogs.eclipse.org/post/mike-milinkovich/welcome-future-cloud-native-java]]></link>
+      <description><![CDATA[Today, with the release of Jakarta EE 8, we've entered a new era in Java innovation!]]></description>
+      <pubDate>Tue, 10 Sep 2019 11:10:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
+     <item>
+      <title><![CDATA[Update for Jakarta EE community: September 2019]]></title>
+      <link><![CDATA[https://blogs.eclipse.org/post/tanja-obradovic/update-jakarta-ee-community-september-2019]]></link>
+      <description><![CDATA[There's a lot happening in the Jakarta EE ecosystem so if you want to get a richer insight into Jakarta EE, read on.]]></description>
+      <pubDate>Mon, 09 Sep 2019 15:10:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
+     <item>
+      <title><![CDATA[Welcome Ivar Grimstad!]]></title>
+      <link><![CDATA[https://blogs.eclipse.org/post/paul-buck/welcome-ivar]]></link>
+      <description><![CDATA[We are happy to announce that effective October 1st, Ivar Grimstad will join the Eclipse Foundation in the role of Jakarta EE Developer Advocate.]]></description>
+      <pubDate>Mon, 26 Aug 2019 11:00:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
+    <item>
+      <title><![CDATA[Jakarta Newsletter August 2019: Jakarta EE 8 Preview]]></title>
+      <link><![CDATA[https://blogs.eclipse.org/post/gabriela-motroc/jakarta-newsletter-august-2019-jakarta-ee-8-preview]]></link>
+      <description><![CDATA[There's a lot happening in the Jakarta EE ecosystem so if you want to get a richer insight into Jakarta EE, read on.]]></description>
+      <pubDate>Mon, 26 Aug 2019 11:00:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
    <item>
       <title><![CDATA[Community Day and Community Evening at EclipseCon Europe 2019]]></title>
       <link><![CDATA[https://blogs.eclipse.org/post/stephanie-swart/community-day-and-community-evening-eclipsecon-europe-2019]]></link>

@@ -197,18 +197,19 @@ public class Analise {
 		}
 		double orrcancesOfipLog = Math
 				.log(dataStore.getOrrcancesOfip().get(ip));
-		if (orrcancesOfipLog == 0.00) {
-			orrcancesOfipLog = 0.01;
-		}
+		orrcancesOfipLog = orrcancesOfipLog==0.00 ? 00.1 : orrcancesOfipLog;
 		double countryRisk = database.countryRisk(countryCode); 
 		int orrcancesOfip = dataStore.getOrrcancesOfip().get(ip);
 		int totalData = getTotalDataForIP(dataStore.getHits(), ip);
 		// look at resposes/requests
-		double avTime = orrcancesOfip/ DataStore.monthMins;
+		double avTime = orrcancesOfip/ (DataStore.monthMins*dataStore.getNumberOfFiles());
+		avTime = avTime == 0 ? 1 : avTime;
 		double responseRisk = 0;
 		double requestRisk = 0;
+		int found = 0;
 		for (Hits h : dataStore.getHits()) {
 			if (h.getiPaddr().equals(ip)) {
+				found++;
 				switch (h.getResponse()) {
 				case 400:
 					responseRisk += 0.5;
@@ -239,7 +240,10 @@ public class Analise {
 					responseRisk = +6;
 				}
 			}
-			System.err.println(responseRisk);
+			if (found==orrcancesOfip) {
+					System.out.println("found all");
+					break;
+			}
 
 		}
 		risk = (orrcancesOfipLog * (Math.log(totalData / orrcancesOfip))

@@ -76,6 +76,7 @@ public class IPDetails extends JFrame {
 	private JTextField textFieldLast30Days;
 	private JLabel lblAgentOrBot;
 	private JTextField textFieldBots;
+	private JButton btnFlagAsPossible;
 
 	/**
 	 * @param dataStore
@@ -207,7 +208,7 @@ public class IPDetails extends JFrame {
 
 		highLevelPanel = new JPanel();
 		panel.add(highLevelPanel, BorderLayout.CENTER);
-		highLevelPanel.setLayout(new MigLayout("", "[246.00][193.00px][291.00px,grow]", "[70.00px][70.00px][70.00px][70.00px][70.00px][70.00px]"));
+		highLevelPanel.setLayout(new MigLayout("", "[246.00][193.00px][347.00px,grow][]", "[70.00px][70.00px][70.00px][70.00px][70.00px][70.00px]"));
 
 		JLabel lblTimesVisted = new JLabel("Times visted");
 		highLevelPanel.add(lblTimesVisted, "cell 1 0,alignx center,growy");
@@ -265,10 +266,26 @@ public class IPDetails extends JFrame {
 		if (database.knownBots(ip).equals("n/a")) {
 			textFieldBots.setText("Not a bot we know of");
 		}else {
+			btnFlagAsPossible.setEnabled(false);
 			textFieldBots.setText(database.knownBots(ip));
 		}
 		highLevelPanel.add(textFieldBots, "cell 2 5,alignx center,growy");
 		textFieldBots.setColumns(10);
+		
+		btnFlagAsPossible = new JButton("Flag as possible bot");
+		btnFlagAsPossible.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String userAgent= "";
+				for (int i = 0; i < hits.size(); i++) {
+					if (hits.get(i).getiPaddr().equals(ip)) {
+						userAgent = hits.get(i).getUserAgent();
+						break;
+					}
+				}
+				database.reportPossibleBot(ip, userAgent);
+			}
+		});
+		highLevelPanel.add(btnFlagAsPossible, "cell 3 5");
 		
 
 		rawDataPanel = new JPanel();

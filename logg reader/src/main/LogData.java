@@ -10,12 +10,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,7 +29,9 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
 import admin.LoginUI;
+import dataModel.Analise;
 import dataModel.DataStore;
+import dataModel.Hits;
 import dataModel.Reader;
 import net.miginfocom.swing.MigLayout;
 import java.awt.FlowLayout;
@@ -250,12 +255,25 @@ public class LogData extends JFrame {
 								FileNameExtensionFilter filter = new FileNameExtensionFilter(
 										"Text files", "txt");
 								jfc.addChoosableFileFilter(filter);
+								jfc.setMultiSelectionEnabled(true);
 								int returnValue = jfc.showSaveDialog(null);
-
+								
 								if (returnValue == JFileChooser.APPROVE_OPTION) {
-									System.err.println(jfc.getSelectedFile().getPath());
-									reader.setFile(jfc.getSelectedFile().getPath());
-									reader.readFile();
+									File[] files = jfc.getSelectedFiles();
+									JOptionPane.showMessageDialog(null, "Processing fliles",
+											"loading", JOptionPane.INFORMATION_MESSAGE);
+									for (File f: files) {
+										reader.setFile(f.getAbsolutePath());
+										reader.readFile();
+									}
+									dataStore.setNumberOfFiles(files.length);
+									Analise analise = new Analise();
+									dataStore.setOrrcancesOfip(analise.getIpCounts(dataStore.getHits()));
+									dataStore.setReferers(analise.getRefererCounts(dataStore.getHits()));
+									dataStore.setProtcals(analise.getProtocalCounts(dataStore.getHits()));
+									dataStore.setPages(analise.getPageCounts(dataStore.getHits()));
+									analise.getTimeCounts(dataStore.getHits());
+									
 
 								}
 								updaateGUI();

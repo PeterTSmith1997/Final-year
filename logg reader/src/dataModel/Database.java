@@ -48,8 +48,8 @@ public class Database {
 	public String knownBots(String ip) {
 		String botName = "n/a";
 		try {
-			PreparedStatement stmt = conn
-					.prepareStatement("SELECT BotName FROM Bots  Where IP=?");
+			PreparedStatement stmt = conn.prepareStatement(
+					"SELECT BotName FROM Bots  Where IP=? and Cat=1");
 			stmt.setString(1, ip);
 			ResultSet rs = stmt.executeQuery();
 			Boolean moreRecords = rs.next();
@@ -239,7 +239,10 @@ public class Database {
 		DefaultTableModel last30Days = new DefaultTableModel(null, ipHeader);
 		try {
 			PreparedStatement stmt = conn.prepareStatement(
-					"SELECT ip, Count(*) AS num, Avg(risk) AS Risk FROM IPLog Where DateReported>? GROUP BY ip");
+					"SELECT ip, Count(*) AS num, Avg(risk) AS Risk FROM IPLog "
+					+ "Where DateReported>? "
+					+ "GROUP BY ip "
+					+ "ORDER BY Count (*)");
 
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Calendar cal = Calendar.getInstance();
@@ -327,7 +330,10 @@ public class Database {
 		DefaultTableModel allTime = new DefaultTableModel(null, ipHeader);
 		try {
 			PreparedStatement stmt = conn.prepareStatement(
-					"SELECT ip, Count(*) AS num, Avg(risk) AS Risk FROM IPLog GROUP BY ip;");
+					"SELECT ip, Count(*) AS num, Avg(risk) AS Risk"
+					+ " FROM IPLog "
+					+ "GROUP BY ip "
+					+ "ORDER BY Count (ip) DESC");
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				allTime.addRow(new String[] { rs.getString("ip"),
@@ -400,7 +406,7 @@ public class Database {
 		return false;
 
 	}
-	
+
 	public int numberReports30Days() {
 		int reports = 0;
 		try {
@@ -429,11 +435,12 @@ public class Database {
 		}
 		return reports;
 	}
+
 	public int numberReportsAllTime() {
 		int reports = 0;
 		try {
-			PreparedStatement stmt = conn.prepareStatement(
-					"SELECT count(ID) AS num FROM IPLog");
+			PreparedStatement stmt = conn
+					.prepareStatement("SELECT count(ID) AS num FROM IPLog");
 			ResultSet rs = stmt.executeQuery();
 			Boolean moreRecords = rs.next();
 			if (!moreRecords) {
@@ -447,4 +454,46 @@ public class Database {
 		}
 		return reports;
 	}
+
+	public void reportPossibleBot(String ip, String userAgent) {
+		try {
+			PreparedStatement stmt = conn.prepareStatement(
+					"INSERT INTO Bots (IP, Cat, Discription, BotName) "
+							+ "VALUES (?,?,?,?)");
+			stmt.setString(1, ip);
+			stmt.setInt(2, 2);
+			stmt.setString(3, "user added");
+			stmt.setString(4, userAgent);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public DefaultTableModel getPosibleBots() {
+		String ipHeader[] = new String[] { "ip", "User Agent", "Number of reports" };
+		DefaultTableModel posibleBots = new DefaultTableModel(null, ipHeader);
+		try {
+			PreparedStatement stmt = conn.prepareStatement("SELECT count(IP) AS num, BotName, IP "
+					+ "FROM Bots "
+					+ "WHERE Cat=? "
+					+ "GROUP BY IP, BotName "
+					+ "ORDER BY count(IP)");
+			stmt.setInt(1, 2);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				posibleBots.addRow(new String[] {rs.getString("IP"),
+						rs.getString("BotName"), Integer.toString(rs.getInt("num"))});
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return posibleBots;
+		
+	}
+
 }

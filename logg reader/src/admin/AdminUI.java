@@ -44,6 +44,8 @@ public class AdminUI extends JFrame {
 	private JScrollPane scrollPane;
 	private JPanel panel_1;
 	private JPanel panel;
+	private JScrollPane scrollPane_2;
+	private JTable table;
 
 	public AdminUI(DataStore dataStore) {
 		setName("AdminUI");
@@ -68,8 +70,9 @@ public class AdminUI extends JFrame {
 
 		panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new MigLayout("",
-				"[275.00][][275.00][][:374.00:329.00]", "[28.00][grow]"));
+		panel_1.setLayout(
+				new MigLayout("", "[275.00][][275.00][][:374.00:329.00,grow]",
+						"[28.00][grow][]"));
 
 		lblReportedIpsLast = new JLabel("Reported ips last 30 days");
 		panel_1.add(lblReportedIpsLast, "cell 0 0,alignx center");
@@ -104,8 +107,15 @@ public class AdminUI extends JFrame {
 
 		scrollPane_1.setViewportView(tblAllTimeReports);
 
+		scrollPane_2 = new JScrollPane();
+		panel_1.add(scrollPane_2, "cell 4 1,grow");
+
+		table = new JTable();
+		table.setModel(database.getPosibleBots());
+		scrollPane_2.setViewportView(table);
+
 		panel_2 = new JPanel();
-		panel_1.add(panel_2, "cell 4 1,grow");
+		panel_1.add(panel_2, "cell 2 2,grow");
 		panel_2.setLayout(new MigLayout("",
 				"[160.00,center][33.00,center][146.00,grow,center]",
 				"[][][][][][]"));
@@ -146,7 +156,8 @@ public class AdminUI extends JFrame {
 		txtUpdateCountryRisks = new JButton();
 		txtUpdateCountryRisks.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				UpdateCountryRiskUI countryRiskUI = new UpdateCountryRiskUI(dataStore);
+				UpdateCountryRiskUI countryRiskUI = new UpdateCountryRiskUI(
+						dataStore);
 				dispose();
 			}
 		});
