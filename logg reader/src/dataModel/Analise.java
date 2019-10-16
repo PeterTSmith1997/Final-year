@@ -203,6 +203,8 @@ public class Analise {
 		int totalData = getTotalDataForIP(dataStore.getHits(), ip);
 		// look at resposes/requests
 		double avTime = orrcancesOfip/ (DataStore.monthMins*dataStore.getNumberOfFiles());
+		double avOIP = dataStore.getOrrcancesOfip().values().stream().mapToDouble(Integer::doubleValue).average().orElse(0);
+		System.err.println(avOIP);
 		avTime = avTime == 0 ? 1 : avTime;
 		double responseRisk = 0;
 		double requestRisk = 0;
