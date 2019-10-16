@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -495,5 +497,77 @@ public class Database {
 		return posibleBots;
 		
 	}
-
+	
+	public DefaultTableModel getKnownBots() {
+		String ipHeader[] = new String[] { "ip", "Bot Name", "type"};
+		DefaultTableModel knownBots = new DefaultTableModel(null, ipHeader);
+		try {
+			PreparedStatement stmt = conn.prepareStatement("SELECT BotName, IP, CatName "
+					+ "FROM Bots INNER JOIN IPType "
+					+ "ON Bots.Cat=IPType.TypeRef "
+					+ "WHERE Cat!=? ");
+			stmt.setInt(1, 2);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				knownBots.addRow(new String[] {rs.getString("IP"),
+						rs.getString("BotName"), rs.getString("catName")});
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return knownBots;
+		
+	}
+	
+	public ArrayList<String> getBotCats() {
+		ArrayList<String> botCats = new ArrayList<>();
+		try {
+			PreparedStatement stmt = conn.prepareStatement("SELECT Typeref, CatName FROM IPType");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String data = rs.getString("Typeref") + " - " + rs.getString("CatName");
+				botCats.add(data);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return botCats;
+		
+	}
+	public Map<String, String> getBotInfo(String ip) {
+		Map<String, String> botInfo = new HashMap<String, String>();
+		try {
+			PreparedStatement stmt = conn.prepareStatement("SELECT BotName, Discription, "
+					+ "Cat "
+					+ "FROM Bots INNER JOIN IPType "
+					+ "ON Bots.Cat=IPType.TypeRef "
+					+ "WHERE IP=? ");
+			stmt.setString(1, ip);
+			ResultSet rs = stmt.executeQuery();
+			if (!rs.next()) {
+				return null;
+			}
+			botInfo.put("cat", rs.getString("cat"));
+			botInfo.put("Discription", rs.getString("Discription"));
+			botInfo.put("Name", rs.getString("Botname"));
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return botInfo;
+		
+	}
+	
+	public void updateBotInfo(Map<String, String> botInfo ) {
+		//delete all but 1
+		// update the last one
+	}
+	
 }

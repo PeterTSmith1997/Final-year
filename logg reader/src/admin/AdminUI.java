@@ -46,9 +46,13 @@ public class AdminUI extends JFrame {
 	private JPanel panel;
 	private JScrollPane scrollPane_2;
 	private JTable table;
+	private JLabel lblPossibleBots;
+	private JScrollPane scrollPane_3;
+	private JTable knownBotsTbl;
+	private JLabel lblKnownBots;
 
 	public AdminUI(DataStore dataStore) {
-		setName("AdminUI");
+	
 		database = new Database();
 		this.dataStore = dataStore;
 		makeGUI();
@@ -71,14 +75,19 @@ public class AdminUI extends JFrame {
 		panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(
-				new MigLayout("", "[275.00][][275.00][][:374.00:329.00,grow]",
-						"[28.00][grow][]"));
+				new MigLayout("", "[275.00][][275.00][][:374.00:329.00,grow][][grow]", "[28.00][grow][]"));
 
 		lblReportedIpsLast = new JLabel("Reported ips last 30 days");
 		panel_1.add(lblReportedIpsLast, "cell 0 0,alignx center");
 
 		lblAllTimeReports = new JLabel("All time reports");
 		panel_1.add(lblAllTimeReports, "cell 2 0,alignx center,aligny center");
+		
+		lblPossibleBots = new JLabel("Possible bots");
+		panel_1.add(lblPossibleBots, "cell 4 0,alignx center");
+		
+		lblKnownBots = new JLabel("Known bots");
+		panel_1.add(lblKnownBots, "cell 6 0,alignx center");
 
 		scrollPane = new JScrollPane();
 		panel_1.add(scrollPane, "cell 0 1,grow");
@@ -111,8 +120,35 @@ public class AdminUI extends JFrame {
 		panel_1.add(scrollPane_2, "cell 4 1,grow");
 
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JTable target = (JTable) e.getSource();
+				int row = target.getSelectedRow();
+				String ip = (String) table.getValueAt(row, 0);
+				EditBotUI botUI = new EditBotUI(dataStore, ip);
+				dispose();
+			}
+		});
 		table.setModel(database.getPosibleBots());
 		scrollPane_2.setViewportView(table);
+		
+		scrollPane_3 = new JScrollPane();
+		panel_1.add(scrollPane_3, "cell 6 1,grow");
+		
+		knownBotsTbl = new JTable();
+		knownBotsTbl.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JTable target = (JTable) e.getSource();
+				int row = target.getSelectedRow();
+				String ip = (String) table.getValueAt(row, 0);
+				EditBotUI botUI = new EditBotUI(dataStore, ip);
+				dispose();
+			}
+		});
+			knownBotsTbl.setModel(database.getKnownBots());
+		scrollPane_3.setViewportView(knownBotsTbl);
 
 		panel_2 = new JPanel();
 		panel_1.add(panel_2, "cell 2 2,grow");
